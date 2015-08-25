@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 注解扫描包 -->
+	<context:component-scan base-package="com.dm.*.controller,com.dm.*.service" />
+	<!-- 开启AOP自动代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 开启注解 -->
+	<mvc:annotation-driven/>
+
+	<!-- 静态资源(js/image)的访问 -->
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<mvc:resources location="/assets/" mapping="/assets/**" />
+	<mvc:resources location="/views/" mapping="/views/**" />
+	<mvc:resources location="/image_center/" mapping="/image_center/**" />
+	<mvc:resources location="/upload/" mapping="/upload/**" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000000" />
+	</bean>
+
+	<!-- 配置freeMarker视图解析器 -->
+	<bean id="viewResolverFtl"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="prefix" value="/" />
+		<property name="contentType" value="text/html; charset=utf-8" />
+		<property name="cache" value="true" />
+		<property name="suffix" value=".ftl" />
+		<property name="order" value="0" />
+	</bean>
+
+	<!--通用视图解析器 -->
+	<bean id="viewResolverCommon"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
+
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath">
+			<value>/</value>
+		</property>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+				<entry key="channelDirective" value-ref="channelDirective" />
+				<entry key="fLinkTag" value-ref="friendLinkDirective" />
+			</map>
+		</property>
+		<property name="defaultEncoding">
+			<value>utf-8</value>
+		</property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 自定义标签 -->
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+	<bean id="channelDirective" class="com.dm.cms.directive.ChannelDirective" />
+	<bean id="friendLinkDirective" class="com.dm.cms.directive.FriendLinkDirective" />
+	<!-- 自定义标签结束 -->
+
+	<!-- json格式设置 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+</beans>

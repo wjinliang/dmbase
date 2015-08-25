@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee [url]http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd[/url]"
+	version="2.0">
+	<tlib-version>1.0</tlib-version>
+	<short-name>d</short-name>
+	<function>
+		<description>根据用户id获取用户名</description>
+		<name>gName</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getUserName(java.lang.String)
+		</function-signature>
+		<example>${d:gName(userId)}</example>
+	</function>
+	<function>
+		<description>根据用户id获取用户名</description>
+		<name>gLName</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getUserLoginname(java.lang.String)
+		</function-signature>
+		<example>${d:gLName(userId)}</example>
+	</function>
+	<function>
+		<description>根据用户id获取最后登录ip</description>
+		<name>gIp</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getRemoteAddr(java.lang.String)
+		</function-signature>
+		<example>${d:gIp(userId)}</example>
+	</function>
+	<function>
+		<description>根据用户id获取最后登录时间</description>
+		<name>gLL</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getLastLoginTime(java.lang.String)
+		</function-signature>
+		<example>${d:gLL(userId)}</example>
+	</function>
+	<function>
+		<description>根据申请id获取我的审批状态</description>
+		<name>gMS</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getMyStatus(java.lang.String)
+		</function-signature>
+		<example>${d:gMS(applyId)}</example>
+	</function>
+	<function>
+		<description>根据审批状态获取申请数量</description>
+		<name>gAn</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getApproveNum(java.lang.String,java.lang.String)
+		</function-signature>
+		<example>${d:gAn(approveStatus,applyObjType)}</example>
+	</function>
+	<function>
+		<description>根据申请id获取是否可以审批</description>
+		<name>aPable</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>boolean ApproveAble(java.lang.String)
+		</function-signature>
+		<example>${d:aPable(applyId)}</example>
+	</function>
+	<function>
+		<description>根据申请id获取总体详情</description>
+		<name>gDet</name>
+		<function-class>com.orange.platform.util.DtldsUtil</function-class>
+		<function-signature>String getApplyDetail(java.lang.String)
+		</function-signature>
+		<example>${d:gDet(applyId)}</example>
+	</function>
+</taglib>
