@@ -55,7 +55,7 @@ public class InboxServiceImpl implements InboxService{
 		// TODO Auto-generated method stub
 		PageHelper.startPage(pageNum, pageSize);
 		List<InboxDto> list = sqlSession
-				.selectList("com.orange.platform.model.InboxEntity.findInboxList",argMap);
+				.selectList("com.dm.platform.model.InboxEntity.findInboxList",argMap);
 		PageInfo<InboxDto> page = new PageInfo<InboxDto>(list);
 		return page;
 	}
@@ -68,7 +68,7 @@ public class InboxServiceImpl implements InboxService{
 		argMap.put("userId", toUserId);
 		argMap.put("inboxType", InboxS.INBOX);
 		argMap.put("inboxDate", DmDateUtil.Current());
-		sqlSession.insert("com.orange.platform.model.InboxEntity.sendUser", argMap);
+		sqlSession.insert("com.dm.platform.model.InboxEntity.sendUser", argMap);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class InboxServiceImpl implements InboxService{
 		argMap.put("userId", fromUserId);
 		argMap.put("inboxType", InboxS.SENT);
 		argMap.put("inboxDate", DmDateUtil.Current());
-		sqlSession.insert("com.orange.platform.model.InboxEntity.sendUser", argMap);
+		sqlSession.insert("com.dm.platform.model.InboxEntity.sendUser", argMap);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("inboxId", inboxId);
 		argMap.put("attachmentId", attachmentId);
-		sqlSession.insert("com.orange.platform.model.InboxEntity.saveAttachement", argMap);
+		sqlSession.insert("com.dm.platform.model.InboxEntity.saveAttachement", argMap);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class InboxServiceImpl implements InboxService{
 	@Override
 	public InboxDto read(String tId) {
 		// TODO Auto-generated method stub
-		InboxDto inbox = sqlSession.selectOne("com.orange.platform.model.InboxEntity.readInbox",tId);
+		InboxDto inbox = sqlSession.selectOne("com.dm.platform.model.InboxEntity.readInbox",tId);
 		return inbox;
 	}
 
@@ -110,7 +110,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("tId", tId);
 		argMap.put("readState", readState);
-		sqlSession.update("com.orange.platform.model.InboxEntity.isReadInbox",argMap);
+		sqlSession.update("com.dm.platform.model.InboxEntity.isReadInbox",argMap);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("inboxId", inboxId);
 		List<FileEntity> list = sqlSession
-				.selectList("com.orange.platform.model.InboxEntity.findAttachments",argMap);
+				.selectList("com.dm.platform.model.InboxEntity.findAttachments",argMap);
 		return list;
 	}
 
@@ -129,7 +129,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("tId", tId);
 		argMap.put("markState", markState);
-		sqlSession.update("com.orange.platform.model.InboxEntity.isMarkInbox",argMap);
+		sqlSession.update("com.dm.platform.model.InboxEntity.isMarkInbox",argMap);
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class InboxServiceImpl implements InboxService{
 		argMap.put("userId", fromUserId);
 		argMap.put("inboxType", InboxS.DRAFT);
 		argMap.put("inboxDate", DmDateUtil.Current());
-		sqlSession.insert("com.orange.platform.model.InboxEntity.insertDraft", argMap);
+		sqlSession.insert("com.dm.platform.model.InboxEntity.insertDraft", argMap);
 		return (Integer)argMap.get("tId");
 	}
 
@@ -149,7 +149,7 @@ public class InboxServiceImpl implements InboxService{
 		// TODO Auto-generated method stub
 		Map argMap = new HashMap();
 		argMap.put("tId", tId);
-		sqlSession.delete("com.orange.platform.model.InboxEntity.deleteDraft", argMap);
+		sqlSession.delete("com.dm.platform.model.InboxEntity.deleteDraft", argMap);
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("tId", tId);
 		argMap.put("inboxDate", inboxDate);
-		sqlSession.delete("com.orange.platform.model.InboxEntity.updateDraft", argMap);
+		sqlSession.delete("com.dm.platform.model.InboxEntity.updateDraft", argMap);
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class InboxServiceImpl implements InboxService{
 		// TODO Auto-generated method stub
 		Map argMap = new HashMap();
 		argMap.put("inboxId", inboxId);
-		sqlSession.delete("com.orange.platform.model.InboxEntity.deleteAttachments", argMap);
+		sqlSession.delete("com.dm.platform.model.InboxEntity.deleteAttachments", argMap);
 	}
 
 	@Override
@@ -190,7 +190,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("tId", tId);
 		argMap.put("trashState", trashState);
-		sqlSession.update("com.orange.platform.model.InboxEntity.isTrashInbox",argMap);
+		sqlSession.update("com.dm.platform.model.InboxEntity.isTrashInbox",argMap);
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class InboxServiceImpl implements InboxService{
 		Map argMap = new HashMap();
 		argMap.put("tId", tId);
 		argMap.put("deleteState", "1");
-		sqlSession.update("com.orange.platform.model.InboxEntity.deleteInbox",argMap);
+		sqlSession.update("com.dm.platform.model.InboxEntity.deleteInbox",argMap);
 	}
 
 
