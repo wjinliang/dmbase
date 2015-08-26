@@ -35,11 +35,6 @@ public class ExampleController extends DefaultController {
 	@Resource
 	ExampleService exampleService;
 
-	/*
-	 * jsp部分*********************************************************************
-	 * *
-	 */
-
 	@RequestMapping("/list")
 	public ModelAndView list(
 			ModelAndView model,
