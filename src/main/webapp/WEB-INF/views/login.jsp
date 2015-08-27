@@ -48,7 +48,7 @@
     <link href="<%=basePath%>assets/admin/layout/css/custom.css"
           rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
-    <link rel="shortcut icon" type="image/x-icon" href="<%=basePath%>favicon.ico" media="screen"/>
+    <link rel="shortcut icon" href="<%=basePath%>favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

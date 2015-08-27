@@ -19,7 +19,7 @@
 	<mvc:annotation-driven/>
 
 	<!-- 静态资源(js/image)的访问 -->
-	<mvc:resources location="favicon.ico" mapping="favicon.ico"/>
+	<mvc:resources location="/favicon.ico" mapping="/favicon.ico"/>
 	<mvc:resources location="/assets/" mapping="/assets/**" />
 	<mvc:resources location="/views/" mapping="/views/**" />
 	<mvc:resources location="/image_center/" mapping="/image_center/**" />
