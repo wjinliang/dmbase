@@ -13,4 +13,4 @@
 <link href="<%=basePath%>/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
 
 <!-- END THEME STYLES -->
-<link rel="shortcut icon" href="<%=basePath%>/assets/admin/favicon.ico">
+<link rel="shortcut icon" href="<%=basePath%>favicon.ico">

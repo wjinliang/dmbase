@@ -4,13 +4,17 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<sec:http pattern="/resources/**" security="none" />
+	<sec:http pattern="/favicon.ico" security="none" />
 	<sec:http pattern="/assets/**" security="none" />
 	<sec:http pattern="/image_center/**" security="none" />
 	<sec:http pattern="/randomImage" security="none" />
 	<sec:http pattern="/checkunique" security="none" />
 	<sec:http pattern="/login" security="none" />
 	<sec:http pattern="/regiest" security="none" />
+	<sec:http pattern="/saveRegiest" security="none" />
+	<sec:http pattern="/resetPassword" security="none" />
+	<sec:http pattern="/error/**" security="none" />
+	<sec:http pattern="/upload/**" security="none" />
 	<sec:http use-expressions="true"
 		entry-point-ref="authenticationProcessingFilterEntryPoint"
 		access-denied-page="/pages/content/403.jsp">
@@ -29,10 +33,6 @@
 		<sec:custom-filter before="FILTER_SECURITY_INTERCEPTOR"
 			ref="myFilter" />
 		<sec:intercept-url pattern="/portal/**" access="permitAll" />
-		<sec:intercept-url pattern="/saveRegiest" access="permitAll" />
-		<sec:intercept-url pattern="/resetPassword" access="permitAll" />
-		<sec:intercept-url pattern="/error/**" access="permitAll" />
-		<sec:intercept-url pattern="/upload/**" access="permitAll" />
 		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
 		<sec:remember-me key="springDm" use-secure-cookie="true" />
 	</sec:http>
