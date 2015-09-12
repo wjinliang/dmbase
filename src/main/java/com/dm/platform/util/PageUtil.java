@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.dm.cms.model.ChannelEntity;
 import com.dm.platform.model.UserMenu;
 
 public class PageUtil {
@@ -125,51 +124,7 @@ public class PageUtil {
 		return sb.toString();
 	}
 	
-	public String channelPagination(ChannelEntity channel,int thispage,long totalcount,int pagesize) {
-		String cId = channel.getChannelId().toString();
-		String isHtml = channel.getIsStaticPage()==null?"0":channel.getIsStaticPage();
-		String htmlDir = channel.getStaticPageDir();
-		Integer totalpage = (int) (totalcount / pagesize);
-		if (totalcount % pagesize != 0) {
-			totalpage++;
-		}
-		StringBuffer sb = new StringBuffer();
-		sb.append("<div class=\"pagination pagination-right\">");
-		sb.append("<ul>");
-		if(thispage==1){
-			sb.append("<li class='disabled'><a href='avascript:;'>首页</a></li>");
-			sb.append("<li class='prev disabled'><a href='javascript:;'>上一页</a></li>");
-		}else{
-			int newPage = thispage-1;
-			String href;
-			if(newPage==1){
-				href = isHtml.equals("1")?(htmlDir+"/"+cId+".html"):(cId+".htm");
-			}else{
-				href = isHtml.equals("1")?(htmlDir+"/"+cId+"_"+newPage+".html"):(cId+"_"+newPage+".htm");
-			}
-			sb.append("<li><a href='"+(isHtml.equals("1")?(htmlDir+"/"+cId+".html"):(cId+".htm"))+"'>首页</a></li>");
-			sb.append("<li class='prev'><a href="+href+">上一页</a></li>");
-		}
-		sb = getChannelPaginationLis(cId,isHtml,htmlDir,sb,thispage,totalpage);
-		if((thispage==totalpage)||(totalpage==0)){
-			sb.append("<li class='next disabled'><a href='javascript:;'>下一页</a></li>");
-			sb.append("<li class='disabled'><a href='javascript:;'>尾页</a></li>");
-		}else{
-			int newPage = thispage+1;
-			String href;
-			if(newPage==1){
-				href = isHtml.equals("1")?(htmlDir+"/"+cId+".html"):(cId+".htm");
-			}else{
-				href = isHtml.equals("1")?(htmlDir+"/"+cId+"_"+newPage+".html"):(cId+"_"+newPage+".htm");
-			}
-			sb.append("<li class='prev'><a href="+href+">下一页</a></li>");
-			sb.append("<li><a href='"+(isHtml.equals("1")?(htmlDir+"/"+cId+"_"+totalpage+".html"):(cId+"_"+totalpage+".htm"))+"'>尾页</a></li>");
-		}
-		sb.append("</ul>");
-		sb.append("</div>");
-		return sb.toString();
-	}
-	
+
 	private StringBuffer getChannelPaginationLis(String cId,String isHtml,String htmlDir,StringBuffer sb,int thispage, int totalpage){
 		int start;
 		int end;

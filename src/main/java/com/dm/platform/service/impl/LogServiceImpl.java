@@ -117,7 +117,7 @@ public class LogServiceImpl implements LogService{
 		// TODO Auto-generated method stub
 		PageHelper.startPage(pageNum, pageSize);
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.LogEntity.findLogs",argMap);
+				.selectList("com.dm.platform.model.LogEntity.findLogs",argMap);
 		PageInfo<Map> page = new PageInfo<Map>(list);
 		return page;
 	}
@@ -125,7 +125,7 @@ public class LogServiceImpl implements LogService{
 	@Override
 	public void deleteAllLogs() {
 		// TODO Auto-generated method stub
-		sqlSession.delete("com.orange.platform.model.LogEntity.deleteAllLogs");
+		sqlSession.delete("com.dm.platform.model.LogEntity.deleteAllLogs");
 	}
 
 }

@@ -10,7 +10,7 @@
 		lis : [ {
 			text : "个人中心",
 			icon : "icon-user",
-			href : dm_root + "infoCenter"
+			href : dm_root + "center"
 		}, {
 			text : "退出",
 			icon : "icon-key",
@@ -87,7 +87,7 @@
 					.tmpl(
 							UserInfo.statics.dataTmpl,
 							{
-								"avatar_" : that._data.avatar == undefined ? that._defaultAvatar
+								"avatar_" : (that._data.avatar == undefined||that._data.avatar=="") ? that._defaultAvatar
 										: that._data.avatar,
 								"userName_" : that._data.userName
 							});

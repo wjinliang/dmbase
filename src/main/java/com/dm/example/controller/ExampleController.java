@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dm.cms.model.SiteEntity;
 import com.dm.example.model.ExampleEntity;
 import com.dm.example.service.ExampleService;
 import com.dm.platform.controller.DefaultController;

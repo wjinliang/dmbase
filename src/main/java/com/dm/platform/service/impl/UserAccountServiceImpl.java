@@ -149,7 +149,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(pageNum, pageSize);
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.UserAccount.findUserList",argMap);
+				.selectList("com.dm.platform.model.UserAccount.findUserList",argMap);
 		PageInfo<Map> page = new PageInfo<Map>(list);
 		return page;
 	}
@@ -157,7 +157,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Override
 	public Long countUserForCheck(Map argMap) {
 		// TODO Auto-generated method stub
-		Long count = sqlSession.selectOne("com.orange.platform.model.UserAccount.countUserForUnique",argMap);
+		Long count = sqlSession.selectOne("com.dm.platform.model.UserAccount.countUserForUnique",argMap);
 		return count;
 	}
 
@@ -165,7 +165,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public List<Map> findAllUserList() {
 		// TODO Auto-generated method stub
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.UserAccount.findAllUserList");
+				.selectList("com.dm.platform.model.UserAccount.findAllUserList");
 		return list;
 	}
 	
@@ -175,7 +175,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		Map argMap = new HashMap();
 		argMap.put("userId", userId);
 		String headPic = sqlSession
-				.selectOne("com.orange.platform.model.UserAccount.getUserHeadPic",argMap);
+				.selectOne("com.dm.platform.model.UserAccount.getUserHeadPic",argMap);
 		return headPic;
 	}
 	

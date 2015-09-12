@@ -59,8 +59,6 @@
 		<property name="freemarkerVariables">
 			<map>
 				<entry key="xml_escape" value-ref="fmXmlEscape" />
-				<entry key="channelDirective" value-ref="channelDirective" />
-				<entry key="fLinkTag" value-ref="friendLinkDirective" />
 			</map>
 		</property>
 		<property name="defaultEncoding">
@@ -75,8 +73,6 @@
 
 	<!-- 自定义标签 -->
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
-	<bean id="channelDirective" class="com.dm.cms.directive.ChannelDirective" />
-	<bean id="friendLinkDirective" class="com.dm.cms.directive.FriendLinkDirective" />
 	<!-- 自定义标签结束 -->
 
 	<!-- json格式设置 -->

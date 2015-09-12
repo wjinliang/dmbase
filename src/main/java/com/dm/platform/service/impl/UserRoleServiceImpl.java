@@ -73,7 +73,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(pageNum, pageSize);
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.UserRole.findRoleList",argMap);
+				.selectList("com.dm.platform.model.UserRole.findRoleList",argMap);
 		PageInfo<Map> page = new PageInfo<Map>(list);
 		return page;
 	}

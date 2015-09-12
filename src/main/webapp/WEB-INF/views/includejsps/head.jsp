@@ -1,9 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib uri="/WEB-INF/tlds/d.tld" prefix="d"%>
 <div class="page-header">
 	<!-- BEGIN HEADER TOP -->
 	<div class="page-header-top">
-		<div class="container-fluid">
+		<div class="container">
 			<!-- BEGIN LOGO -->
 			<div class="page-logo">
 				<a><img src="<%=basePath%>assets/admin/layout3/img/logo-default.png" alt="logo" class="logo-default"></a>
@@ -39,7 +38,7 @@
 	<!-- END HEADER TOP -->
 	<!-- BEGIN HEADER MENU -->
 	<div class="page-header-menu">
-		<div class="container-fluid">
+		<div class="container">
 			<!-- BEGIN HEADER SEARCH BOX -->
 			<form class="search-form" action="#" method="get">
 				<div class="input-group">

@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dm.cms.model.ContentEntity;
 import com.dm.platform.dao.CommonDAO;
 import com.dm.platform.model.FileEntity;
 import com.dm.platform.service.FileService;

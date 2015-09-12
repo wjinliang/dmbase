@@ -32,7 +32,7 @@
 	<div class="page-container">
 		<!-- BEGIN PAGE HEAD -->
 		<div class="page-head">
-			<div class="container-fluid">
+			<div class="container">
 				<!-- BEGIN PAGE TITLE -->
 				<div class="page-title">
 					<h1>
@@ -48,7 +48,7 @@
 		<!-- END PAGE HEAD -->
 		<!-- BEGIN PAGE CONTENT -->
 		<div class="page-content">
-			<div class="container-fluid">
+			<div class="container">
 				<!-- BEGIN PAGE CONTENT INNER -->
 				<div class="row margin-top-10">
 					<div class="col-md-12 col-sm-12">

@@ -72,7 +72,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(pageNum, pageSize);
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.MenuGroup.findMgList",argMap);
+				.selectList("com.dm.platform.model.MenuGroup.findMgList",argMap);
 		PageInfo<Map> page = new PageInfo<Map>(list);
 		return page;
 	}
@@ -81,7 +81,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 	public List<Map> findAllMgList() {
 		// TODO Auto-generated method stub
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.MenuGroup.findAllMgList");
+				.selectList("com.dm.platform.model.MenuGroup.findAllMgList");
 		return list;
 	}
 

@@ -28,16 +28,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dm.platform.dao.CommonDAO;
 import com.dm.platform.dto.RegeistDto;
-import com.dm.platform.model.ApplyEntity;
-import com.dm.platform.model.NoticeEntity;
 import com.dm.platform.model.TempUser;
 import com.dm.platform.model.UserAccount;
 import com.dm.platform.model.UserAttrEntity;
 import com.dm.platform.model.UserMenu;
 import com.dm.platform.model.UserRole;
-import com.dm.platform.service.ApplyService;
 import com.dm.platform.service.InboxService;
-import com.dm.platform.service.NoticeService;
 import com.dm.platform.service.UserAccountService;
 import com.dm.platform.service.UserAttrService;
 import com.dm.platform.service.UserRoleService;
@@ -58,15 +54,11 @@ public class BaseController extends DefaultController {
 	@Resource
 	CommonDAO commonDAO;
 
-	@Resource
-	ApplyService applyService;
 
 	@Resource
 	UserAttrService userAttrService;
 
-	@Resource
-	NoticeService noticeService;
-	
+
 	@Resource
 	InboxService inboxService;
 	
@@ -89,10 +81,6 @@ public class BaseController extends DefaultController {
 
 			if (currentUser.getRoles().size() > 0) {
 				Map<String, Object> map = new HashMap<String, Object>();
-				map = noticeService.getAll(0, 5);
-				model.addObject("notices",
-						(List<NoticeEntity>) map.get("items"));
-				// model.setViewName("/pages/admin/index");
 				model.setViewName("/admin/dashboard");
 				return Model(model);
 			} else {
@@ -119,22 +107,7 @@ public class BaseController extends DefaultController {
 			tempUser.setCreatDate(DmDateUtil.DateToStr(new Date(),
 					"yyyy-MM-dd HH:mm:ss"));
 			commonDAO.save(tempUser);
-			ApplyEntity entity = new ApplyEntity();
-			String applyId = String.valueOf(System.currentTimeMillis());
-			entity.setApplyId(applyId);
-			entity.setApplyContent("用户：" + tempUser.getName() + "("
-					+ tempUser.getLoginname() + ")申请注册");
-			entity.setApplyStatus("1");
-			entity.setApplyUserId(tempUser.getCode());
-			entity.setApplyObjType(CommonStatics.USER_REG);
-			entity.setApplyObjId("1417702781223");
-			entity.setApplyDate(DmDateUtil.DateToStr(new Date()));
-			applyService.newApply(entity);
-			// 发送个特定用户审批
-			UserAccount admin = userAccountService.findOne("1");
-			applyService.sendApply(applyId, "1", CommonStatics.NEED_APPROVE, 0);
-			//发送消息
-			
+
 			model.addObject("redirect", getRootPath() + "/login");
 			model.setViewName("/pages/content/redirect");
 			return model;

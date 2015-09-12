@@ -23,13 +23,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.dm.platform.dao.CommonDAO;
-import com.dm.platform.model.Dict;
-import com.dm.platform.model.DictItem;
 import com.dm.platform.model.MenuGroup;
 import com.dm.platform.model.UserRole;
 import com.dm.platform.security.UserCacheUtil;
-import com.dm.platform.service.DictService;
-import com.dm.platform.util.DictCache;
 import com.dm.platform.util.EhCacheUtil;
 import com.dm.platform.util.RandomValidateCode;
 
@@ -50,7 +46,6 @@ public class CommonListener extends ContextLoaderListener {
 			initRandomVcode();
 			EhCacheUtil.getInstance().init(ct);
 			UserCacheUtil.getInstance().init();
-			initDict();
 		} catch (Exception ce) {
 			ce.printStackTrace();
 			log.error("初始化数据异常：", ce);
@@ -60,25 +55,7 @@ public class CommonListener extends ContextLoaderListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 	}
-	
-	public void initDict(){
-		DictService dictService=(DictService)ct.getBean("dictServiceImpl");
-		 List<Dict> d=dictService.listEnableDict();
-		 DictCache dictCache=DictCache.getInstance();
-		 for(Dict dict:d){
-			 List<DictItem> itemList=dictService.listDictItemByDictId(dict.getDictId());
-			 HashMap mp=new HashMap<String,String>();
-			 for(DictItem item:itemList){
-				 mp.put(item.getItemCode(), item.getItemName());
-			 }
-			 dictCache.keyNameContainer.put(dict.getDictCode(), mp);
-			 dictCache.dictItemContainer.put(dict.getDictCode(), itemList);
-			 mp=null;
-			 itemList=null;
-		 }
-		 dictCache.initAllJsonDic(dictService);
-	}
-	
+
 	public void initRandomVcode(){
 		RandomValidateCode.getInstance().getRandcode();
 	}

@@ -101,7 +101,7 @@ ul.ztree {
 	<div class="page-container">
 		<!-- BEGIN PAGE HEAD -->
 		<div class="page-head">
-			<div class="container-fluid">
+			<div class="container">
 				<!-- BEGIN PAGE TITLE -->
 				<div class="page-title">
 					<h1>组织机构管理</h1>
@@ -115,7 +115,7 @@ ul.ztree {
 		<!-- END PAGE HEAD -->
 		<!-- BEGIN PAGE CONTENT -->
 		<div class="page-content">
-			<div class="container-fluid">
+			<div class="container">
 				<!-- BEGIN PAGE CONTENT INNER -->
 				<div class="row margin-top-10">
 					<div class="col-md-3 col-sm-12"></div>

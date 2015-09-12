@@ -55,7 +55,7 @@ public class UserMenuServiceImpl implements UserMenuService {
 	public List<Map> findAllMenuSimpleList() {
 		// TODO Auto-generated method stub
 		List<Map> list = sqlSession
-				.selectList("com.orange.platform.model.UserMenu.findAllMenuSimpleList");
+				.selectList("com.dm.platform.model.UserMenu.findAllMenuSimpleList");
 		return list;
 	}
 

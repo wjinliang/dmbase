@@ -63,8 +63,8 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
             //成功为0  
         	Map map = new HashMap();
         	map.put("status", 0);
-            JSONObject jsonData = JSONObject.fromObject(map);  
-            objectMapper.writeValue(jsonGenerator, jsonData);  
+           // JSONObject jsonData = JSONObject.fromObject(map);
+            objectMapper.writeValue(jsonGenerator, map);
         } catch (JsonProcessingException ex) {  
             throw new HttpMessageNotWritableException("Could not write JSON: " + ex.getMessage(), ex);  
         }  
