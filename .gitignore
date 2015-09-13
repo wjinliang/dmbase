@@ -1,9 +1,10 @@
+
 ### Example user template template
 ### Example user template
 
 # IntelliJ project files
-.idea
-*.iml
+/dmcms.iml
+/.idea
 /target
 out
 gen
