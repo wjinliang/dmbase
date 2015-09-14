@@ -143,6 +143,11 @@
 		</property>
 	</bean>
 
+	<!-- configLocation为mybatis属性 mapperLocations为所有mapper -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		  p:basePackage="com.dm.*.mybatisdao"
+		  p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
