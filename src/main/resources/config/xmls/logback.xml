@@ -10,14 +10,6 @@
 	<property name="pattern"
 		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
 	<property name="log_home" value="${catalina.base}/logs" />
-	<property name="smtpHost" value="" />
-	<property name="smtpPort" value="25" />
-	<property name="username" value="" />
-	<property name="password" value="" />
-	<property name="SSL" value="false" />
-	<property name="email_to" value="" />
-	<property name="email_from" value="" />
-	<property name="email_subject" value="【Error】: %logger" />
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>${pattern}</pattern>
@@ -25,9 +17,6 @@
 	</appender>
 	<appender name="infolog"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<!--See http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
-		<!--and http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy -->
-		<!--for further documentation -->
 		<File>${log_home}/frameworkInfo.log</File>
 		<encoder>
 			<pattern>${pattern}</pattern>
@@ -42,9 +31,6 @@
 	</appender>
 	<appender name="errlog"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<!--See http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
-		<!--and http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy -->
-		<!--for further documentation -->
 		<File>${log_home}/frameworkErr.log</File>
 		<encoder>
 			<pattern>${pattern}</pattern>
@@ -59,9 +45,6 @@
 	</appender>
 	<appender name="debuglog"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<!--See http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
-		<!--and http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy -->
-		<!--for further documentation -->
 		<File>${log_home}/frameworkDebug.log</File>
 		<encoder>
 			<pattern>${pattern}</pattern>
@@ -78,10 +61,12 @@
 	<root level="INFO">
 		<appender-ref ref="stdout" />
 		<appender-ref ref="infolog" />
-		<appender-ref ref="errlog" />
-		<appender-ref ref="debuglog" />
 	</root>
-	<logger name="java.sql.Connection" level="DEBUG" />
-	<logger name="java.sql.Statement" level="DEBUG" />
-	<logger name="java.sql.PreparedStatement" level="DEBUG" />
+	<logger name="com.ibatis" level="DEBUG"/>
+	<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG"/>
+	<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG"/>
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG"/>
+	<logger name="java.sql.Connection" level="DEBUG"/>
+	<logger name="java.sql.Statement" level="DEBUG"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
 </configuration>

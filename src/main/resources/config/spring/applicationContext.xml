@@ -16,7 +16,7 @@
 			http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 	<context:property-placeholder
-		location="classpath:config/properties/jdbc.properties" />
+		location="classpath:config/properties/jdbc.properties,classpath:config/properties/dm.properties" />
 
 	<bean id="cacheManager"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
