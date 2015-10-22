@@ -15,66 +15,59 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 
-@Service
-public class UserRoleServiceImpl implements UserRoleService {
-	
-	@Resource
-	private CommonDAO commonDAO;
-	@Resource
-	private SqlSessionTemplate sqlSession;
-	
-	@Override
-	public List<UserRole> listUserRole(int thispage,int pagesize) {
-		// TODO Auto-generated method stub
-		String hql = "from  UserRole ";
-		return commonDAO.findByPage(hql, thispage, pagesize);
-	}
+@Service public class UserRoleServiceImpl implements UserRoleService {
 
-	@Override
-	public void insertUserRole(UserRole entity) {
-		// TODO Auto-generated method stub
-		commonDAO.save(entity);
-	}
+    @Resource private CommonDAO commonDAO;
+    @Resource private SqlSessionTemplate sqlSession;
 
-	@Override
-	public void updateUserRole(UserRole entity) {
-		// TODO Auto-generated method stub
-		commonDAO.update(entity);
-	}
+    @Override public List<UserRole> listUserRole(int thispage, int pagesize) {
+        // TODO Auto-generated method stub
+        String hql = "from  UserRole ";
+        return commonDAO.findByPage(hql, thispage, pagesize);
+    }
 
-	@Override
-	public void deleteUserRole(UserRole entity) {
-		// TODO Auto-generated method stub
-		commonDAO.delete(entity);
-	}
+    @Override public void insertUserRole(UserRole entity) {
+        // TODO Auto-generated method stub
+        commonDAO.save(entity);
+    }
 
-	@Override
-	public UserRole findOne(String id) {
-		// TODO Auto-generated method stub
-		return commonDAO.findOne(UserRole.class, id);
-	}
-	@Override
-	public Long countUserRole() {
-		// TODO Auto-generated method stub
-		String hql = "select count(*) from  UserRole ";
-		return commonDAO.count(hql);
-	}
+    @Override public void updateUserRole(UserRole entity) {
+        // TODO Auto-generated method stub
+        commonDAO.update(entity);
+    }
 
-	@Override
-	public void refreshService() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override public void deleteUserRole(UserRole entity) {
+        // TODO Auto-generated method stub
+        commonDAO.delete(entity);
+    }
 
-	@Override
-	public PageInfo<Map> findRoleList(Integer pageNum, Integer pageSize,
-			Map argMap) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		PageHelper.startPage(pageNum, pageSize);
-		List<Map> list = sqlSession
-				.selectList("com.dm.platform.model.UserRole.findRoleList",argMap);
-		PageInfo<Map> page = new PageInfo<Map>(list);
-		return page;
-	}
+    @Override public UserRole findOne(String id) {
+        // TODO Auto-generated method stub
+        return commonDAO.findOne(UserRole.class, id);
+    }
+
+    @Override public UserRole findOneByRoleName(String roleName) {
+        return commonDAO.findByPropertyName(UserRole.class, "name", roleName).get(0);
+    }
+
+    @Override public Long countUserRole() {
+        // TODO Auto-generated method stub
+        String hql = "select count(*) from  UserRole ";
+        return commonDAO.count(hql);
+    }
+
+    @Override public void refreshService() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override public PageInfo<Map> findRoleList(Integer pageNum, Integer pageSize, Map argMap) {
+        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map> list =
+            sqlSession.selectList("com.dm.platform.model.UserRole.findRoleList", argMap);
+        PageInfo<Map> page = new PageInfo<Map>(list);
+        return page;
+    }
 }

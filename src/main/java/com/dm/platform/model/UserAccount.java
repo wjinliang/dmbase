@@ -30,18 +30,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "T_USER_ACCOUNT")
 public class UserAccount implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1724450140216701197L;
-	
+
 	@Id
 	@Pattern(regex = "[A-Za-z0-9_\\-]+")
 	@Column(name = "CODE", nullable = false, length = 50)
 	private String code;
-	
+
 	@Column(name = "LOGINNAME", nullable = false, length = 50)
 	private String loginname;
-	
+
 	@Column(name = "NAME", nullable = false, length = 50)
 	private String name;
-	
+
 	@Column(name = "PASSWORD", nullable = false, length = 64)
 	private String password;
 	//是否失效
@@ -65,10 +65,10 @@ public class UserAccount implements Serializable, UserDetails {
 	 * */
 	@Column(name = "MOBILE", length = 50)
 	private String mobile;
-	
+
 	@Column(name = "EMAIL", length = 50)
 	private String email;
-	
+
 	@Column(name = "HEADPIC")
 	private String headpic;
 
@@ -89,20 +89,20 @@ public class UserAccount implements Serializable, UserDetails {
 	@JoinColumn(name = "org_id")
 	@OrderBy("seq asc")
 	private Org org = new Org();
-	
+
 	/*
 	 * 登录日志基本信息
 	 * */
 	@Column(name = "LASTLOGINTIME", length = 50)
 	private String lastLoginTime;
-	
+
 	@Column(name = "REMOTEIPADDR", length = 50)
 	private String remoteIpAddr;
-	
+
 	@Column(name = "LOGINCOUNT",columnDefinition="int default 0")
 	private Long loginCount;
 
-	
+
 	public String getCode() {
 		return code;
 	}
@@ -111,7 +111,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.code = code;
 	}
 
-	
+
 	public String getLoginname() {
 		return loginname;
 	}
@@ -120,7 +120,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.loginname = loginname;
 	}
 
-	
+
 	public String getName() {
 		return name;
 	}
@@ -129,7 +129,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.name = name;
 	}
 
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -146,7 +146,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.enabled = enabled;
 	}
 
-	
+
 	public boolean isNonLocked() {
 		return nonLocked;
 	}
@@ -154,8 +154,8 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setNonLocked(boolean nonLocked) {
 		this.nonLocked = nonLocked;
 	}
-	
-	
+
+
 	public boolean isAccountExpired() {
 		return accountExpired;
 	}
@@ -163,7 +163,7 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setAccountExpired(boolean accountExpired) {
 		this.accountExpired = accountExpired;
 	}
-	
+
 	public boolean isPasswordExpired() {
 		return passwordExpired;
 	}
@@ -172,7 +172,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.passwordExpired = passwordExpired;
 	}
 
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -181,7 +181,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.email = email;
 	}
 
-	
+
 	public String getLastLoginTime() {
 		return lastLoginTime;
 	}
@@ -189,8 +189,8 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setLastLoginTime(String lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
-	
-	
+
+
 	public String getRemoteIpAddr() {
 		return remoteIpAddr;
 	}
@@ -198,8 +198,8 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setRemoteIpAddr(String remoteIpAddr) {
 		this.remoteIpAddr = remoteIpAddr;
 	}
-	
-	
+
+
 	public Long getLoginCount() {
 		return loginCount==null?0:loginCount;
 	}
@@ -207,7 +207,7 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setLoginCount(Long loginCount) {
 		this.loginCount = loginCount;
 	}
-	
+
 	public String getHeadpic() {
 		return headpic;
 	}
@@ -216,7 +216,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.headpic = headpic;
 	}
 
-	
+
 	public FileEntity getHeadphoto() {
 		return headphoto;
 	}
@@ -233,7 +233,7 @@ public class UserAccount implements Serializable, UserDetails {
 		this.seq = seq;
 	}
 
-	
+
 	public Set<UserRole> getRoles() {
 		return roles;
 	}
@@ -241,13 +241,13 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setRoles(Set<UserRole> roles) {
 		this.roles = roles;
 	}
-	
+
 	public void addRole(UserRole role){
 		Set<UserRole> roleset = getRoles();
 		roleset.add(role);
 		setRoles(roleset);
 	}
-	
+
 	public Org getOrg() {
 		return org;
 	}
@@ -255,7 +255,7 @@ public class UserAccount implements Serializable, UserDetails {
 	public void setOrg(Org org) {
 		this.org = org;
 	}
-	
+
 	public String getMobile() {
 		return mobile;
 	}
@@ -289,7 +289,7 @@ public class UserAccount implements Serializable, UserDetails {
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		//账号过期
-		return true;
+		return !isAccountExpired();
 	}
 
 	@Override
@@ -305,7 +305,7 @@ public class UserAccount implements Serializable, UserDetails {
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		//密码失效
-		return true;
+		return !isPasswordExpired();
 	}
 
 	@Override

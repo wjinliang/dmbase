@@ -143,7 +143,7 @@ var Login = function() {
                     required: true,
                     remote: {
                         type: "post",
-                        url: dm_root+"/checkunique",
+                        url: dm_root+"checkunique",
                         data: {
                         	param: function() {
                                 return $("#username").val();
@@ -152,7 +152,7 @@ var Login = function() {
                         },
                         dataType: "html",
                         dataFilter: function(data, type) {
-                            if (data == "y")
+                            if (data == "true")
                                 return true;
                             else
                                 return false;

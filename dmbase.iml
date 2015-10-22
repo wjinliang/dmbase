@@ -24,6 +24,27 @@
         </fileset>
       </configuration>
     </facet>
+    <facet type="JRebel" name="JRebel">
+      <configuration>
+        <option name="autosync" value="false" />
+        <option name="deleteUnindexed" value="true" />
+        <option name="httpAuthEnabled" value="false" />
+        <option name="httpPassword" />
+        <option name="httpUsername" />
+        <option name="ideModuleStorage">
+          <map>
+            <entry key="com.zeroturnaround.jrebel.intellij.remoting.Remote2ModuleSpecificServerMigrationCompleted" value="true" />
+          </map>
+        </option>
+        <option name="manualXML" value="false" />
+        <option name="masterModuleName" />
+        <option name="remotingEnabled" value="false" />
+        <option name="scanAllFiles" value="false" />
+        <option name="secure" value="true" />
+        <option name="url" />
+        <option name="xmlDir" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -110,10 +131,9 @@
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.2" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:2.4" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
     <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib-ext-spring:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.6" level="project" />

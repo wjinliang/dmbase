@@ -122,14 +122,10 @@
         <div class="login-options">
             <h4 class="pull-left">或者使用第三方授权登录</h4>
             <ul class="social-icons pull-right">
-                <li><a class="social-icon-color facebook"
-                       data-original-title="facebook" href="#"></a></li>
-                <li><a class="social-icon-color twitter"
-                       data-original-title="Twitter" href="#"></a></li>
-                <li><a class="social-icon-color googleplus"
-                       data-original-title="Goole Plus" href="#"></a></li>
-                <li><a class="social-icon-color linkedin"
-                       data-original-title="Linkedin" href="#"></a></li>
+                <li><a class="social-icon-color sina"
+                       data-original-title="sina" href="#"></a></li>
+                <li><a class="social-icon-color wechat"
+                       data-original-title="wechat" href="#"></a></li>
             </ul>
         </div>
         <div class="create-account">

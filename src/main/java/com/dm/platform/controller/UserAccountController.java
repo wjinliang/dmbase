@@ -327,8 +327,8 @@ public class UserAccountController extends DefaultController {
 				useraccount.setPassword(sha.encodePassword(
 						useraccount.getPassword(), null));
 				useraccount.setNonLocked(true);
-				useraccount.setAccountExpired(true);
-				useraccount.setPasswordExpired(true);
+				useraccount.setAccountExpired(false);
+				useraccount.setPasswordExpired(false);
 				if (orgid != null && !orgid.equals("")) {
 					Org o = new Org();
 					o = commonDAO.findOne(Org.class, Long.valueOf(orgid));
@@ -785,8 +785,8 @@ public class UserAccountController extends DefaultController {
 				sha.setEncodeHashAsBase64(false);
 				user.setPassword(sha.encodePassword(
 						password, null));
-				user.setPasswordExpired(true);
-				user.setAccountExpired(true);
+				user.setPasswordExpired(false);
+				user.setAccountExpired(false);
 				//角色
 				if (!StringUtils.isEmpty(dto.getRoleIds())) {
 					Set<UserRole> urset = new HashSet<UserRole>();
