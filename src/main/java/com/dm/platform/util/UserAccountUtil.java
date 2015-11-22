@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -29,7 +30,6 @@ import com.dm.platform.model.UserRole;
 public class UserAccountUtil {
     private static UserAccountUtil instance = new UserAccountUtil();
     public WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
-    public UserCache userCache = (UserCache) context.getBean("userCache");
     public CommonDAO commonDAO = (CommonDAO) context.getBean("commonDAOImpl");
 
     private UserAccountUtil() {
@@ -41,22 +41,20 @@ public class UserAccountUtil {
     }
 
     public String getCurrentUser() {
-        UserDetails userDetails =
-            (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userDetails != null)
-            return userDetails.getUsername();
-        return null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = null;
+        if (principal instanceof UserAccount)
+            userName = ((UserAccount) principal).getUsername();
+        return userName;
     }
 
 
     public UserAccount getCurrentUserAccount() {
-        UserAccount ua = (UserAccount) userCache.getUserFromCache(getCurrentUser());
-        if (ua == null) {
-            ua = (UserAccount) commonDAO
-                .findByPropertyName(UserAccount.class, "loginname", getCurrentUser()).get(0);
-            userCache.putUserInCache(ua);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserAccount) {
+            return (UserAccount) principal;
         }
-        return ua;
+        return null;
     }
 
     public String getCurrentUserId() {

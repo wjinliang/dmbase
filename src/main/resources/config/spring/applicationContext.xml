@@ -107,7 +107,7 @@
 					org.hibernate.dialect.MySQLDialect
 				</prop>
 				<prop key="hibernate.hbm2ddl.auto">
-					update
+					none
 				</prop>
 				<prop key="hibernate.max_fetch_depth">
 					3
