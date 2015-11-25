@@ -11,16 +11,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
+import com.dm.platform.util.FileUtil;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +34,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dm.platform.dao.CommonDAO;
 import com.dm.platform.model.FileEntity;
 import com.dm.platform.service.FileService;
-import com.dm.platform.util.ConfigUtil;
 
 @Controller @RequestMapping("/file") public class FileController extends DefaultController {
 
@@ -181,7 +178,7 @@ import com.dm.platform.util.ConfigUtil;
                     if (!targetFile.exists()) {
                         targetFile.mkdirs();
                     }
-                    SaveFileFromInputStream(multipartFile.getInputStream(), path, fileName);
+                    FileUtil.saveFileFromInputStream(multipartFile.getInputStream(), path, fileName);
                     String url = fileUrl + "/" + fileName;
                     id = String.valueOf(System.currentTimeMillis());
                     fileService
@@ -227,7 +224,7 @@ import com.dm.platform.util.ConfigUtil;
             if (!targetFile.exists()) {
                 targetFile.mkdirs();
             }
-            SaveFileFromInputStream(file.getInputStream(), path, fileName);
+            FileUtil.saveFileFromInputStream(file.getInputStream(), path, fileName);
             String url = imageUrl + "/" + fileName;
             id = String.valueOf(System.currentTimeMillis());
             fileService.insertFile(id, url, String.valueOf(file.getSize()), realfileName,
@@ -248,19 +245,6 @@ import com.dm.platform.util.ConfigUtil;
             out.flush();
             out.close();
         }
-    }
-
-    private void SaveFileFromInputStream(InputStream stream, String path, String filename)
-        throws IOException {
-        FileOutputStream fs = new FileOutputStream(path + "/" + filename);
-        byte[] buffer = new byte[1024 * 1024];
-        int byteread = 0;
-        while ((byteread = stream.read(buffer)) != -1) {
-            fs.write(buffer, 0, byteread);
-            fs.flush();
-        }
-        fs.close();
-        stream.close();
     }
 
     @RequestMapping("/fileJson") public @ResponseBody Object fileJson(

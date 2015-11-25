@@ -80,22 +80,12 @@ public class DefaultController {
 		model.addObject("pagesize", pagesize);
 		model.addObject("pagination",
 				PageUtil.getInstance().pagination(thispage, tp, totalcount, pagesize));
-		model.addObject("dialog_css", "?skin=idialog");
-		model.addObject("onlineCount", UserAccountUtil.getInstance()
-				.getOnlineCount(sessionRegistry));
-		model.addObject("currentUser", UserAccountUtil.getInstance()
-				.getCurrentUserAccount());
 		return model;
 	}
 	
 	
 	public ModelAndView Model(ModelAndView model) {
 		model.addObject("root", getRootPath());
-		model.addObject("dialog_css", "?skin=idialog");
-		model.addObject("onlineCount", UserAccountUtil.getInstance()
-				.getOnlineCount(sessionRegistry));
-		model.addObject("currentUser", UserAccountUtil.getInstance()
-				.getCurrentUserAccount());
 		return model;
 	}
 	

@@ -14,7 +14,7 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:property-placeholder
-            location="classpath:config/properties/jdbc.properties,classpath:config/properties/dm.properties"/>
+            location="classpath*:config/properties/*.properties"/>
     <!-- 注解扫描包 -->
     <context:component-scan base-package="com.dm.*.controller,com.dm.*.service"/>
     <!-- 开启AOP自动代理 -->
@@ -26,6 +26,7 @@
     <mvc:resources location="/favicon.ico" mapping="/favicon.ico"/>
     <mvc:resources location="/assets/" mapping="/assets/**"/>
     <mvc:resources location="/image_center/" mapping="/image_center/**"/>
+    <mvc:resources location="/html/" mapping="/html/**"/>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

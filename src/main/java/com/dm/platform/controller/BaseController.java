@@ -55,6 +55,11 @@ import com.dm.platform.service.UserRoleService;
 
     @Resource Cache myCache;
 
+
+    @RequestMapping("/") public String base(ModelAndView model) {
+        return "redirect:/login";
+    }
+
     @RequestMapping("/login") public ModelAndView login(ModelAndView model) {
         model.setViewName("/login");
         return model;

@@ -1001,9 +1001,9 @@
                     });
                 ul.append(nextLi);
                 var lastLi = $.tmpl(liTmpl, {
-                    "class_": pageNum == totalP ? "next disabled" : "next",
+                    "class_": ((pageNum == totalP) || (totalP == 0)) ? "next disabled" : "next",
                     "pageto_": totalP,
-                    "num_": ">> " + totalP
+                    "num_": ">> " + ((totalP == 0) ? "1" : totalP)
                 });
                 ul.append(lastLi);
             };

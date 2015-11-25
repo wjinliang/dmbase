@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context
@@ -15,175 +18,149 @@
     		http://www.springframework.org/schema/cache 
 			http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<context:property-placeholder
-		location="classpath:config/properties/jdbc.properties,classpath:config/properties/dm.properties" />
+    <context:property-placeholder
+            location="classpath:config/properties/jdbc.properties,classpath:config/properties/dm.properties"/>
 
-	<bean id="cacheManager"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation">
-			<value>classpath:config/xmls/ehcache.xml</value>
-		</property>
-	</bean>
+    <bean id="cacheManager"
+          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation">
+            <value>classpath:config/xmls/ehcache.xml</value>
+        </property>
+    </bean>
 
-	<bean id="myCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-		<property name="cacheManager" ref="cacheManager">
-		</property>
-		<property name="cacheName">
-			<value>DEFAULT_CACHE</value>
-		</property>
-	</bean>
+    <bean id="myCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager" ref="cacheManager">
+        </property>
+        <property name="cacheName">
+            <value>DEFAULT_CACHE</value>
+        </property>
+    </bean>
 
-	<bean id="userCache"
-		class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
-		<property name="cache" ref="userEhCache" />
-	</bean>
+    <bean id="userCache"
+          class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+        <property name="cache" ref="userEhCache"/>
+    </bean>
 
-	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-		<property name="cacheManager" ref="cacheManager" />
-		<property name="cacheName" value="userCache" />
-	</bean>
+    <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="cacheName" value="userCache"/>
+    </bean>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass">
-			<value>${db.driverClassName}</value>
-		</property>
-		<property name="jdbcUrl">
-			<value>${db.url}</value>
-		</property>
-		<property name="user">
-			<value>${db.username}</value>
-		</property>
-		<property name="password">
-			<value>${db.password}</value>
-		</property>
-		<property name="initialPoolSize">
-			<value>${db.initialPoolSize}</value>
-		</property>
-		<property name="minPoolSize">
-			<value>${db.minPoolSize}</value>
-		</property>
-		<property name="maxPoolSize">
-			<value>${db.maxPoolSize}</value>
-		</property>
-		<property name="maxIdleTime">
-			<value>${db.maxIdleTime}</value>
-		</property>
-		<property name="acquireIncrement">
-			<value>${db.acquireIncrement}</value>
-		</property>
-		<property name="acquireRetryAttempts">
-			<value>${db.acquireRetryAttempts}</value>
-		</property>
-		<property name="acquireRetryDelay">
-			<value>${db.acquireRetryDelay}</value>
-		</property>
-		<property name="maxStatements">
-			<value>${db.maxStatements}</value>
-		</property>
-		<property name="maxStatementsPerConnection">
-			<value>${db.maxStatementsPerConnection}</value>
-		</property>
-		<property name="checkoutTimeout">
-			<value>${db.checkoutTimeout}</value>
-		</property>
-		<property name="breakAfterAcquireFailure">
-			<value>${db.breakAfterAcquireFailure}</value>
-		</property>
-	</bean>
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${jdbc.initial.size}"/>
+        <property name="minIdle" value="${jdbc.min.idle}"/>
+        <property name="maxActive" value="${jdbc.max.active}"/>
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+    </bean>
 
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource">
-		</property>
-	</bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource">
+        </property>
+    </bean>
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">
-					org.hibernate.dialect.MySQLDialect
-				</prop>
-				<prop key="hibernate.hbm2ddl.auto">
-					none
-				</prop>
-				<prop key="hibernate.max_fetch_depth">
-					3
-				</prop>
-				<prop key="hibernate.show_sql">
-					false
-				</prop>
-				<prop key="hibernate.format_sql">
-					true
-				</prop>
-			</props>
-		</property>
-		<property name="packagesToScan" value="com.dm.*.model" />
-	</bean>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.max_fetch_depth">
+                    3
+                </prop>
+                <prop key="hibernate.show_sql">
+                    false
+                </prop>
+                <prop key="hibernate.format_sql">
+                    true
+                </prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="com.dm.*.model"/>
+    </bean>
 
-	<!-- mybatis文件配置，扫描所有mapper文件 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:config/spring/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:mapper/**/*.xml" />
-		<property name="plugins">
-			<array>
-				<bean class="com.github.pagehelper.PageHelper">
-					<property name="properties">
-						<value>
-							dialect=hsqldb
-							reasonable=true
-							params=count=countSql;pageSizeZero=zero
-						</value>
-					</property>
-				</bean>
-			</array>
-		</property>
-	</bean>
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:configLocation="classpath:config/spring/mybatis-config.xml"
+          p:mapperLocations="classpath:/mapper/**/*.xml">
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=hsqldb
+                            reasonable=true
+                            params=count=countSql;pageSizeZero=zero
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+    <!-- configLocation为mybatis属性 mapperLocations为所有mapper -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.dm.*.sqldao"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
 
-	<!-- configLocation为mybatis属性 mapperLocations为所有mapper -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-		  p:basePackage="com.dm.*.mybatisdao"
-		  p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    <context:annotation-config/>
+    <!-- 使用 annotation 自动注册bean,并检查@Controller, @Service, @Repository注解已被注入 -->
+    <context:component-scan
+            base-package="com.dm.platform.aop,com.dm.platform.dao,com.dm.*.service"/>
 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
-	</bean>
-	<context:annotation-config />
-	<!-- 使用 annotation 自动注册bean,并检查@Controller, @Service, @Repository注解已被注入 -->
-	<context:component-scan
-		base-package="com.dm.platform.aop,com.dm.platform.dao,com.dm.*.service" />
-
-	<!-- 配置事务管理 -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+    <!-- 配置事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
 
-	<aop:config>
-		<aop:pointcut expression="execution(* com.dm.*.service.*.*(..))"
-			id="myTx" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="myTx" />
-	</aop:config>
+    <aop:config>
+        <aop:pointcut expression="execution(* com.dm.*.service.*.*(..))"
+                      id="myTx"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="myTx"/>
+    </aop:config>
 
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
-				rollback-for="Exception" />
-			<tx:method name="save*" propagation="REQUIRED" read-only="false"
-				rollback-for="Exception" />
-			<tx:method name="update*" propagation="REQUIRED" read-only="false"
-				rollback-for="Exception" />
-			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
-				rollback-for="Exception" />
-			<tx:method name="list*" propagation="SUPPORTS" />
-			<tx:method name="find*" propagation="SUPPORTS" />
-			<tx:method name="get*" propagation="SUPPORTS" />
-			<tx:method name="select*" propagation="SUPPORTS" />
-		</tx:attributes>
-	</tx:advice>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Exception"/>
+            <tx:method name="list*" propagation="SUPPORTS"/>
+            <tx:method name="find*" propagation="SUPPORTS"/>
+            <tx:method name="get*" propagation="SUPPORTS"/>
+            <tx:method name="select*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
 
 </beans>

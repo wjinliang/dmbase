@@ -13,8 +13,11 @@
     <sec:http pattern="/regiest" security="none"/>
     <sec:http pattern="/saveRegiest" security="none"/>
     <sec:http pattern="/resetPassword" security="none"/>
-    <sec:http pattern="/error/**" security="none"/>
     <sec:http pattern="/upload/**" security="none"/>
+
+    <sec:http pattern="/portal/**" security="none"/>
+    <sec:http pattern="/html/**" security="none"/>
+
     <sec:http use-expressions="true"
               entry-point-ref="authenticationProcessingFilterEntryPoint"
               access-denied-page="/pages/content/403.jsp">
