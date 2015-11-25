@@ -46,8 +46,9 @@ public class CmsChannelServiceImpl implements CmsChannelService {
     @Override public PageInfo<CmsChannel> findCmsChannelByPage(Integer pageNum, Integer pageSize,
         CmsChannel cmsChannel) {
         Map map = new HashMap();
+        map.put("model",cmsChannel);
         PageHelper.startPage(pageNum, pageSize);
-        List<CmsChannel> list = cmsChannelMapper.selectRecords(map);
+        List<CmsChannel> list = cmsChannelMapper.selectRecordsByArgMap(map);
         PageInfo<CmsChannel> page = new PageInfo<CmsChannel>(list);
         return page;
     }

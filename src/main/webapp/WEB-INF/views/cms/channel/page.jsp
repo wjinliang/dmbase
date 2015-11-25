@@ -62,7 +62,7 @@
                                 <div class="portlet-title">
                                     <div class="caption caption-md">
                                         <i class="icon-bar-chart theme-font hide"></i> <span
-                                            class="caption-subject theme-font bold uppercase">站点</span>
+                                            class="caption-subject theme-font bold uppercase">频道</span>
                                         <span class="caption-helper"></span>
                                     </div>
                                 </div>
@@ -159,12 +159,12 @@
             onAsyncSuccess: function (event, treeId, treeNode, msg) {
                 if (msg.length == 0) {
                     Metronic.alert({
-                        message: "<a href='../site/page'>请先新建站点！</a>",
+                        message: "<a href='../site/page'>请先新建频道！</a>",
                         type: "warning",
                         container: "#site_tree_div",
                         place: "prepend",
                         close: false,
-                        closeInSeconds : 5
+                        closeInSeconds: 5
                     });
                 }
             },
@@ -176,6 +176,9 @@
                 currentSiteId = treeNode.id;
                 channelTree.setting.async.url = "./tree?siteId=" + currentSiteId;
                 channelTree.reAsyncChildNodes(null, "refresh");
+                grid.reload({
+                    url: "./list?siteId=" + currentSiteId
+                });
             }
         }
     };
@@ -214,12 +217,12 @@
             onAsyncSuccess: function (event, treeId, treeNode, msg) {
                 if (msg.length == 0) {
                     Metronic.alert({
-                        message: "该站点下暂无频道！",
+                        message: "该频道下暂无频道！",
                         type: "warning",
                         container: "#channel_tree_div",
                         place: "prepend",
                         close: false,
-                        closeInSeconds : 5
+                        closeInSeconds: 5
                     });
                 }
             },
@@ -228,9 +231,179 @@
             }
         }
     };
+    var grid;
+    var model;
+    var options = {
+        url: "./list", // ajax地址
+        pageNum: 1,//当前页码
+        pageSize: 5,//每页显示条数
+        idFiled: "id",//id域指定
+        showCheckbox: true,//是否显示checkbox
+        checkboxWidth: "3%",
+        showIndexNum: true,
+        indexNumWidth: "5%",
+        pageSelect: [2, 15, 30, 50],
+        cloums: [{
+            title: "名称",
+            field: "displayName",
+            sort: true
+        }, {
+            title: "英文标识",
+            field: "enName",
+            sort: true
+        }, {
+            title: "修改时间",
+            field: "updateTime",
+            format: function (i, data) {
+                return new Date(parseInt(data.updateTime)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+            }
+        }
+        ],
+        actionCloumText: "操作",//操作列文本
+        actionCloumWidth: "30%",
+        actionCloums: [{
+            text: "编辑",
+            cls: "green",
+            handle: function (index, data) {
+                modal = $.dmModal({
+                    id: "siteForm",
+                    title: "表单",
+                    distroy: true
+                });
+                modal.show();
+                var form = modal.$body.dmForm(formOpts);
+                form.loadRemote("./load?channelId=" + data.id);
+            }
+        },
+            {
+                text: "删除",
+                cls: "red",
+                handle: function (index, data) {
+                    deleteItem(data.id);
+                }
+            }],
+        tools: [
+            //工具属性
+            {
+                text: " 添 加",//按钮文本
+                cls: "btn green",//按钮样式
+                icon: "fa fa-cubes",
+                handle: function (grid) {//按钮点击事件
+                    modal = $.dmModal({
+                        id: "siteForm",
+                        title: "添加",
+                        distroy: true
+                    });
+                    modal.show();
+                    var form = modal.$body.dmForm(formOpts);
+                }
+            }, {
+                text: " 删 除",
+                cls: "btn red ",//按钮样式
+                handle: function (grid) {
+                    deleteItems(grid.getSelectIds());
+                }
+            }],
+        search: {
+            rowEleNum: 2,
+            //搜索栏元素
+            items: [{
+                type: "text",
+                label: "名称",
+                name: "name",
+                placeholder: "输入要搜索的频道名称"
+            }]
+        }
+    };
+    var formOpts = {
+        id: "channel_form",//表单id
+        name: "channel_form",//表单名
+        method: "post",//表单method
+        action: "./insertOrUpdate",//表单action
+        ajaxSubmit: true,//是否使用ajax提交表单
+        labelInline: true,
+        rowEleNum: 1,
+        beforeSubmit: function () {
+
+        },
+        ajaxSuccess: function () {
+            modal.hide();
+            grid.reload();
+        },
+        submitText: "保存",//保存按钮的文本
+        showReset: true,//是否显示重置按钮
+        resetText: "重置",//重置按钮文本
+        isValidate: true,//开启验证
+        buttons: [{
+            type: 'button',
+            text: '关闭',
+            handle: function () {
+                modal.hide();
+            }
+        }],
+        buttonsAlign: "center",
+        //表单元素
+        items: [{
+            type: 'hidden',
+            name: 'id',
+            id: 'id'
+        }, {
+            type: 'hidden',
+            name: 'pid',
+            id: 'pid',
+            value : 0
+        }, {
+            type: 'hidden',
+            name: 'siteId',
+            id: 'siteId',
+            value : 1
+        }, {
+            type: 'text',//类型
+            name: 'displayName',//name
+            id: 'displayName',//id
+            label: '频道名称',//左边label
+            cls: 'input-large',
+            rule: {
+                required: true
+            },
+            message: {
+                required: "频道名称"
+            }
+        }, {
+            type: 'text',//类型
+            name: 'enName',//name
+            id: 'enName',//id
+            label: '英文标示',//左边label
+            cls: 'input-large',
+            rule: {
+                required: true
+            },
+            message: {
+                required: "请输入英文标示"
+            }
+        },{
+            type: 'select',
+            name: 'templateId',
+            id: 'templateId',
+            label: '页面模板',
+            cls: 'input-large',
+            items: [{
+                value: '',
+                text: '请选择'
+            }],
+            itemsUrl: "../template/selects",
+            rule: {
+                required: true
+            },
+            message: {
+                required: "请选择页面模板"
+            }
+        }]
+    };
     jQuery(document).ready(function () {
         $.fn.zTree.init($("#site_tree"), siteSetting, "");
         siteZTree = $.fn.zTree.getZTreeObj("site_tree");
+        grid = $("#channel_grid").dmGrid(options);
     });
 </script>
 <!-- END JAVASCRIPTS -->

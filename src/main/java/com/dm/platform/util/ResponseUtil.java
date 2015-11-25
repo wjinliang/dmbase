@@ -13,6 +13,12 @@ public class ResponseUtil {
         map.put("msg","success");
         return map;
     }
+    public static Map success(String msg){
+        Map map = new HashMap();
+        map.put("status",1);
+        map.put("msg",msg);
+        return map;
+    }
 
     public static Map error(){
         Map map = new HashMap();

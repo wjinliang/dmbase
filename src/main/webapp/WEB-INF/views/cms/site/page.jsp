@@ -174,8 +174,7 @@
                         placeholder: "输入要搜索的站点名称"
                     }]
                 }
-            }
-            ;
+            };
     var modal;
     //form
     var formOpts = {

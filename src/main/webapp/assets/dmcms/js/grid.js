@@ -44,7 +44,7 @@
         + '</div></div>',
         gridWrapperTmpl: '<div id="${id_}_wrapper" class="dataTables_wrapper no-footer"></div>',
         tableRowTmpl: '<div class="table-scrollable"></div>',
-        pagingRowTmpl: '<div class="row"><div role="select" class="col-md-3 col-sm-12"></div><div role="info" class="col-md-3 col-sm-12"></div><div role="page" class="col-md-5 col-sm-12"></div><div role="goPage" class="col-md-1 col-sm-12"></div></div>',
+        pagingRowTmpl: '<div class="row"><div role="select" class="col-md-2 col-sm-6"></div><div role="info" class="col-md-4 col-sm-6"></div><div role="page" class="col-md-4 col-sm-6"></div><div role="goPage" class="col-md-2 col-sm-6" style="text-align: right;"></div></div>',
         labelTmpl: '<label>${label_}</label>',
         textTmpl: '<input type="text" name="${name_}" id="${id_}" class="form-control ${span_}" placeholder="${placeholder_}" value="${value_}">',
         passwordTmpl: '<input type="password" class="form-control ${class_}">',
@@ -829,8 +829,22 @@
                 tbody.append(tr);
                 tr.data("data", grid);
             };
+            var renderEmptyTbody = function(tbody){
+                var tr = $.tmpl(trTmpl, {
+                    "class_": "odd gradeX"
+                });
+                var cols = that._cloums.length+(that._showCheck==true?1:0)+(that._showIndexNum?1:0)+that._actionCloums.length;
+                var td = $.tmpl(tdTmpl, {});
+                td.css("text-align","center");
+                td.attr("colspan",cols);
+                td.html("暂无数据");
+                tr.append(td);
+                tbody.append(tr);
+            }
             var tbody = $('<tbody></tbody>');
             if (that._grids != undefined && that._grids != null) {
+                if(that._grids.length==0)
+                    renderEmptyTbody(tbody);
                 $.each(that._grids, function (index, grid) {
                     renderTbody(tbody, grid, index);
                 });
