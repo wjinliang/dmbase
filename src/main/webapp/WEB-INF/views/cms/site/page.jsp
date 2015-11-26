@@ -170,7 +170,7 @@
                     items: [{
                         type: "text",
                         label: "名称",
-                        name: "name",
+                        name: "displayName",
                         placeholder: "输入要搜索的站点名称"
                     }]
                 }

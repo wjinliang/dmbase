@@ -25,6 +25,8 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 
     @Override public void insertCmsChannel(CmsChannel cmsChannel) {
         cmsChannelMapper.insertSelective(cmsChannel);
+        cmsChannel.setSeq(cmsChannel.getId());
+        updateCmsChannel(cmsChannel);
     }
 
     @Override public void updateCmsChannel(CmsChannel cmsChannel) {
@@ -65,14 +67,14 @@ public class CmsChannelServiceImpl implements CmsChannelService {
         Map channelArgMap = new HashMap();
         List<TreeNode> channelNodes = cmsChannelMapper.selectTreeNodes(channelArgMap);
         for (TreeNode treeNode : channelNodes) {
-            if(treeNode.getPid()==0){
-                treeNode.setPid(-treeNode.getI());
+            if(treeNode.getpId()==0){
+                treeNode.setpId(-treeNode.getI());
             };
         }
         Map siteArgMap = new HashMap();
         List<TreeNode> siteNodes = cmsSiteMapper.selectTreeNodesByArgMap(siteArgMap);
         for (TreeNode siteNode : siteNodes) {
-            siteNode.setPid(0);
+            siteNode.setpId(0);
             siteNode.setId(-siteNode.getId());
             Collections.addAll(channelNodes,siteNode);
         }

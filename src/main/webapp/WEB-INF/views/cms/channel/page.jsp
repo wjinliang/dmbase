@@ -271,7 +271,7 @@
                     distroy: true
                 });
                 modal.show();
-                var form = modal.$body.dmForm(formOpts);
+                var form = modal.$body.dmForm(getFormOptions());
                 form.loadRemote("./load?channelId=" + data.id);
             }
         },
@@ -289,13 +289,18 @@
                 cls: "btn green",//按钮样式
                 icon: "fa fa-cubes",
                 handle: function (grid) {//按钮点击事件
+                    if (currentSiteId == null){
+                        alert("请先选择站点！");
+                        return false;
+                    }
                     modal = $.dmModal({
                         id: "siteForm",
                         title: "添加",
                         distroy: true
                     });
                     modal.show();
-                    var form = modal.$body.dmForm(formOpts);
+                    var form = modal.$body.dmForm(getFormOptions());
+                    form.setValue("siteId",currentSiteId);
                 }
             }, {
                 text: " 删 除",
@@ -310,96 +315,115 @@
             items: [{
                 type: "text",
                 label: "名称",
-                name: "name",
+                name: "displayName",
                 placeholder: "输入要搜索的频道名称"
             }]
         }
     };
-    var formOpts = {
-        id: "channel_form",//表单id
-        name: "channel_form",//表单名
-        method: "post",//表单method
-        action: "./insertOrUpdate",//表单action
-        ajaxSubmit: true,//是否使用ajax提交表单
-        labelInline: true,
-        rowEleNum: 1,
-        beforeSubmit: function () {
+    var getFormOptions = function () {
+        var formOpts = {
+            id: "channel_form",//表单id
+            name: "channel_form",//表单名
+            method: "post",//表单method
+            action: "./insertOrUpdate",//表单action
+            ajaxSubmit: true,//是否使用ajax提交表单
+            labelInline: true,
+            rowEleNum: 1,
+            beforeSubmit: function () {
 
-        },
-        ajaxSuccess: function () {
-            modal.hide();
-            grid.reload();
-        },
-        submitText: "保存",//保存按钮的文本
-        showReset: true,//是否显示重置按钮
-        resetText: "重置",//重置按钮文本
-        isValidate: true,//开启验证
-        buttons: [{
-            type: 'button',
-            text: '关闭',
-            handle: function () {
+            },
+            ajaxSuccess: function () {
                 modal.hide();
-            }
-        }],
-        buttonsAlign: "center",
-        //表单元素
-        items: [{
-            type: 'hidden',
-            name: 'id',
-            id: 'id'
-        }, {
-            type: 'hidden',
-            name: 'pid',
-            id: 'pid',
-            value : 0
-        }, {
-            type: 'hidden',
-            name: 'siteId',
-            id: 'siteId',
-            value : 1
-        }, {
-            type: 'text',//类型
-            name: 'displayName',//name
-            id: 'displayName',//id
-            label: '频道名称',//左边label
-            cls: 'input-large',
-            rule: {
-                required: true
+                grid.reload();
             },
-            message: {
-                required: "频道名称"
-            }
-        }, {
-            type: 'text',//类型
-            name: 'enName',//name
-            id: 'enName',//id
-            label: '英文标示',//左边label
-            cls: 'input-large',
-            rule: {
-                required: true
-            },
-            message: {
-                required: "请输入英文标示"
-            }
-        },{
-            type: 'select',
-            name: 'templateId',
-            id: 'templateId',
-            label: '页面模板',
-            cls: 'input-large',
-            items: [{
-                value: '',
-                text: '请选择'
+            submitText: "保存",//保存按钮的文本
+            showReset: true,//是否显示重置按钮
+            resetText: "重置",//重置按钮文本
+            isValidate: true,//开启验证
+            buttons: [{
+                type: 'button',
+                text: '关闭',
+                handle: function () {
+                    modal.hide();
+                    channelTree.reAsyncChildNodes(null,"refresh");
+                }
             }],
-            itemsUrl: "../template/selects",
-            rule: {
-                required: true
-            },
-            message: {
-                required: "请选择页面模板"
-            }
-        }]
-    };
+            buttonsAlign: "center",
+            //表单元素
+            items: [{
+                type: 'hidden',
+                name: 'id',
+                id: 'id'
+            }, {
+                type: "tree",
+                name: "siteId",
+                id: "siteId",
+                label: "所属站点",
+                url: "../site/tree",
+                autoParam: ["id", "name", "pId"],
+                chkStyle: "radio",
+                expandAll: true,
+                rule: {
+                    required: true
+                },
+                message: {
+                    required: "请选择所属站点"
+                }
+            }, {
+                type: "tree",
+                name: "pid",
+                id: "pid",
+                label: "所属频道",
+                detail: "顶级节点不选择",
+                url: "./tree?siteId=" + currentSiteId,
+                autoParam: ["id", "name", "pId"],
+                expandAll: true,
+                chkStyle: "radio"
+            }, {
+                type: 'text',//类型
+                name: 'displayName',//name
+                id: 'displayName',//id
+                label: '频道名称',//左边label
+                cls: 'input-large',
+                rule: {
+                    required: true
+                },
+                message: {
+                    required: "频道名称"
+                }
+            }, {
+                type: 'text',//类型
+                name: 'enName',//name
+                id: 'enName',//id
+                label: '英文标示',//左边label
+                cls: 'input-large',
+                rule: {
+                    required: true
+                },
+                message: {
+                    required: "请输入英文标示"
+                }
+            }, {
+                type: 'select',
+                name: 'templateId',
+                id: 'templateId',
+                label: '页面模板',
+                cls: 'input-large',
+                items: [{
+                    value: '',
+                    text: '请选择'
+                }],
+                itemsUrl: "../template/selects",
+                rule: {
+                    required: true
+                },
+                message: {
+                    required: "请选择页面模板"
+                }
+            }]
+        };
+        return formOpts;
+    }
     jQuery(document).ready(function () {
         $.fn.zTree.init($("#site_tree"), siteSetting, "");
         siteZTree = $.fn.zTree.getZTreeObj("site_tree");

@@ -16,6 +16,6 @@ public interface CmsSiteService {
     void deleteCmsSite(int cmsSiteId);
     CmsSite findOneById(int cmsSiteId);
     CmsSite findOneByDomain(String domain);
-    PageInfo<CmsSite> findCmsSite(Integer pageNum,Integer pageSize,CmsSite cmsSite);
+    PageInfo<CmsSite> findCmsSite(Integer pageNum,Integer pageSize,Map argMap);
     List<TreeNode> findCmsSiteTreeNodes();
 }

@@ -5,7 +5,7 @@ package com.dm.platform.dto;
  */
 public class TreeNode {
     private int id;
-    private int pid;
+    private int pId;
     private String name;
     private boolean checked;
     private boolean open;
@@ -23,12 +23,12 @@ public class TreeNode {
         this.id = id;
     }
 
-    public int getPid() {
-        return pid;
+    public int getpId() {
+        return pId;
     }
 
-    public void setPid(int pid) {
-        this.pid = pid;
+    public void setpId(int pId) {
+        this.pId = pId;
     }
 
     public String getName() {

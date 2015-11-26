@@ -2,8 +2,8 @@ package com.dm.cms.controller;
 
 import com.dm.cms.model.CmsSite;
 import com.dm.cms.service.CmsSiteService;
-import com.dm.platform.controller.ControllerExceptionHandler;
 import com.dm.platform.dto.TreeNode;
+import com.dm.platform.util.SqlParam;
 import com.dm.platform.util.PageConvertUtil;
 import com.dm.platform.util.ResponseUtil;
 import com.github.pagehelper.PageInfo;
@@ -11,13 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cgj on 2015/11/22.
@@ -33,9 +33,10 @@ import java.util.List;
     @RequestMapping("/list") public @ResponseBody Object findSites(
         @RequestParam(value = "pageNum", required = false) Integer pageNum,
         @RequestParam(value = "pageSize", required = false) Integer pageSize,
-        @RequestParam(value = "site", required = false) CmsSite site,
+        CmsSite cmsSite,
         @RequestParam(value = "sort", required = false) String sort) {
-        PageInfo<CmsSite> page = cmsSiteService.findCmsSite(pageNum, pageSize, site);
+        Map map = new SqlParam<CmsSite>().autoParam(cmsSite, sort);
+        PageInfo<CmsSite> page = cmsSiteService.findCmsSite(pageNum, pageSize, map);
         return PageConvertUtil.grid(page);
     }
 

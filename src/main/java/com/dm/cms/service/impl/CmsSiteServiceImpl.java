@@ -40,8 +40,7 @@ import java.util.Map;
     }
 
     @Override
-    public PageInfo<CmsSite> findCmsSite(Integer pageNum, Integer pageSize, CmsSite cmsSite) {
-        Map argMap = new HashMap();
+    public PageInfo<CmsSite> findCmsSite(Integer pageNum, Integer pageSize, Map argMap) {
         PageHelper.startPage(pageNum, pageSize);
         List<CmsSite> list = cmsSiteMapper.selectRecordsByArgMap(argMap);
         PageInfo<CmsSite> page = new PageInfo<CmsSite>(list);

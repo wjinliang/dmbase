@@ -18,7 +18,7 @@
     </resultMap>
     <resultMap id="TreeNodeMap" type="com.dm.platform.dto.TreeNode">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="pid" property="pId" jdbcType="INTEGER"/>
         <result column="display_name" property="name" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -184,11 +184,14 @@
                 <if test="model.displayName != null">
                     display_name like CONCAT(CONCAT('%', #{model.displayName}),'%')
                 </if>
-                <if test="model.dmoain != null">
-                    and domain like CONCAT(CONCAT('%', #{model.dmoain}),'%')
+                <if test="model.domain != null">
+                    and domain like CONCAT(CONCAT('%', #{model.domain}),'%')
                 </if>
             </if>
         </where>
+        <if test="sort!=null and sort!='' ">
+            ORDER BY ${sort}
+        </if>
     </select>
 
     <select id="selectTreeNodesByArgMap" parameterType="java.util.Map" resultMap="TreeNodeMap">

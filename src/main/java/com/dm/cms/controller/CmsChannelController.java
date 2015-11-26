@@ -26,7 +26,7 @@ import java.util.List;
         return "/cms/channel/page";
     }
 
-    @RequestMapping("/tree") public @ResponseBody Object treeJson(
+    @RequestMapping("/tree") public @ResponseBody Object treeJsonBySiteId(
         @RequestParam(value = "siteId", required = true) Integer siteId) {
         List<TreeNode> treeNodes = cmsChannelService.findCmsChannelTreeNodeBySiteId(siteId);
         return treeNodes;
@@ -42,22 +42,24 @@ import java.util.List;
             .grid(cmsChannelService.findCmsChannelByPage(pageNum, pageSize, cmsChannel));
     }
 
-    @RequestMapping("/load")public @ResponseBody Object load(
+    @RequestMapping("/load") public @ResponseBody Object load(
         @RequestParam(value = "channelId", required = true) Integer channelId) {
         return cmsChannelService.findOneById(channelId);
     }
 
-    @RequestMapping("/insertOrUpdate") public @ResponseBody Object insertOrUpdate(CmsChannel cmsChannel){
-        if(cmsChannel.getId()==null)
+    @RequestMapping("/insertOrUpdate") public @ResponseBody Object insertOrUpdate(
+        CmsChannel cmsChannel) {
+        if (cmsChannel.getId() == null)
             insertChannel(cmsChannel);
         updateChannel(cmsChannel);
         return ResponseUtil.success();
     }
 
-    private void insertChannel(CmsChannel cmsChannel){
+    private void insertChannel(CmsChannel cmsChannel) {
         cmsChannelService.insertCmsChannel(cmsChannel);
     }
-    private void updateChannel(CmsChannel cmsChannel){
+
+    private void updateChannel(CmsChannel cmsChannel) {
         cmsChannelService.updateCmsChannel(cmsChannel);
     }
 }
