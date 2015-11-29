@@ -3,6 +3,7 @@ package com.dm.cms.service.impl;
 import com.dm.cms.sqldao.CmsSiteMapper;
 import com.dm.cms.model.CmsSite;
 import com.dm.cms.service.CmsSiteService;
+import com.dm.platform.dto.SelectOptionDto;
 import com.dm.platform.dto.TreeNode;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -39,8 +40,7 @@ import java.util.Map;
         return cmsSiteMapper.selectByDomain(domain);
     }
 
-    @Override
-    public PageInfo<CmsSite> findCmsSite(Integer pageNum, Integer pageSize, Map argMap) {
+    @Override public PageInfo<CmsSite> findCmsSite(Integer pageNum, Integer pageSize, Map argMap) {
         PageHelper.startPage(pageNum, pageSize);
         List<CmsSite> list = cmsSiteMapper.selectRecordsByArgMap(argMap);
         PageInfo<CmsSite> page = new PageInfo<CmsSite>(list);
@@ -49,5 +49,9 @@ import java.util.Map;
 
     @Override public List<TreeNode> findCmsSiteTreeNodes() {
         return cmsSiteMapper.selectTreeNodesByArgMap(null);
+    }
+
+    @Override public List<SelectOptionDto> findCmsSiteSelectOption() {
+        return cmsSiteMapper.selectSelectOptionByArgMap(null);
     }
 }

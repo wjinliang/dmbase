@@ -22,6 +22,10 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
+    <link rel="stylesheet" type="text/css"
+          href="<%=basePath%>assets/global/plugins/bootstrap-select/bootstrap-select.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="<%=basePath%>assets/global/plugins/select2/select2.css"/>
     <%@include file="../../includejsps/style.jsp" %>
     <%@include file="../../includejsps/plugin-style.jsp" %>
 </head>
@@ -31,7 +35,9 @@
 <!-- DOC: Apply "page-header-top-fixed" class to set the top menu fixed  -->
 <body>
 <!-- BEGIN HEADER -->
+
 <%@include file="../../includejsps/head.jsp" %>
+
 <!-- END HEADER -->
 <!-- BEGIN PAGE CONTAINER -->
 <div class="page-container">
@@ -62,15 +68,34 @@
                                 <div class="portlet-title">
                                     <div class="caption caption-md">
                                         <i class="icon-bar-chart theme-font hide"></i> <span
-                                            class="caption-subject theme-font bold uppercase">频道</span>
+                                            class="caption-subject theme-font bold uppercase">选择站点</span>
                                         <span class="caption-helper"></span>
                                     </div>
                                 </div>
-                                <div class="portlet-body">
-                                    <div class="scroller" style="height:200px;" id="site_tree_div"
-                                         data-always-visible="1" data-rail-visible="1">
-                                        <ul id="site_tree" class="ztree"></ul>
-                                    </div>
+                                <div class="portlet-body form">
+                                    <form action="javascript:;"
+                                          class="form-horizontal form-row-sepe">
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <select name="select2_site"
+                                                                id="select2_site"
+                                                                class="form-control input-medium select2me"
+                                                                data-placeholder="请选择站点...">
+                                                            <option value=""></option>
+                                                        </select>
+                                                        <span class="input-group-addon"
+                                                              onclick="refreshSite()"
+                                                              style="cursor:pointer">
+                                                            <i class="fa fa-refresh"></i>刷新
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <!-- END PORTLET-->
@@ -127,61 +152,15 @@
 <!-- BEGIN JAVASCRIPTS-->
 <%@include file="../../includejsps/js.jsp" %>
 <%@include file="../../includejsps/plugin-js.jsp" %>
+<script type="text/javascript"
+        src="<%=basePath%>assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript">
-    var siteZTree;
     var channelTree;
     var currentSiteId;
-    var siteSetting = {
-        view: {
-            showIcon: false,
-            selectedMulti: false
-        },
-        edit: {
-            enable: false,
-            showRemoveBtn: false,
-            showRenameBtn: false
-        },
-        check: {
-            enable: false
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        async: {
-            enable: true,
-            dataType: "json",
-            url: "../site/tree",
-            autoParam: ["id", "name", "pId"]
-        },
-        callback: {
-            onAsyncSuccess: function (event, treeId, treeNode, msg) {
-                if (msg.length == 0) {
-                    Metronic.alert({
-                        message: "<a href='../site/page'>请先新建频道！</a>",
-                        type: "warning",
-                        container: "#site_tree_div",
-                        place: "prepend",
-                        close: false,
-                        closeInSeconds: 5
-                    });
-                }
-            },
-            onClick: function (event, treeId, treeNode) {
-                if (typeof(channelTree) == "undefined") {
-                    $.fn.zTree.init($("#channel_tree"), channelSetting, "");
-                    channelTree = $.fn.zTree.getZTreeObj("channel_tree");
-                }
-                currentSiteId = treeNode.id;
-                channelTree.setting.async.url = "./tree?siteId=" + currentSiteId;
-                channelTree.reAsyncChildNodes(null, "refresh");
-                grid.reload({
-                    url: "./list?siteId=" + currentSiteId
-                });
-            }
-        }
-    };
+    var currentChannelId;
+
     var channelSetting = {
         view: {
             showIcon: false,
@@ -208,11 +187,11 @@
         },
         callback: {
             beforeAsync: function (treeId, treeNode) {
-                var nodes = siteZTree.getSelectedNodes();
-                if (nodes[0] == null) {
+                if (typeof (currentSiteId) == "undefined") {
                     return false;
+                } else {
+                    return true;
                 }
-                return true;
             },
             onAsyncSuccess: function (event, treeId, treeNode, msg) {
                 if (msg.length == 0) {
@@ -225,9 +204,13 @@
                         closeInSeconds: 5
                     });
                 }
+                channelTree.expandAll(true);
             },
             onClick: function (event, treeId, treeNode) {
-                alert(treeNode.id);
+                currentChannelId = treeNode.id;
+                grid.reload({
+                    url: "./list?id=" + currentChannelId
+                });
             }
         }
     };
@@ -240,27 +223,29 @@
         idFiled: "id",//id域指定
         showCheckbox: true,//是否显示checkbox
         checkboxWidth: "3%",
-        showIndexNum: true,
+        showIndexNum: false,
         indexNumWidth: "5%",
         pageSelect: [2, 15, 30, 50],
         cloums: [{
+            title: "id",
+            field: "id",
+            width: "5%"
+        }, {
+            title: "父节点id",
+            field: "pid",
+            width: "5%"
+        }, {
             title: "名称",
             field: "displayName",
-            sort: true
+            width: "15%"
         }, {
             title: "英文标识",
             field: "enName",
-            sort: true
-        }, {
-            title: "修改时间",
-            field: "updateTime",
-            format: function (i, data) {
-                return new Date(parseInt(data.updateTime)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
-            }
+            width: "10%"
         }
         ],
         actionCloumText: "操作",//操作列文本
-        actionCloumWidth: "30%",
+        actionCloumWidth: "20%",
         actionCloums: [{
             text: "编辑",
             cls: "green",
@@ -289,7 +274,7 @@
                 cls: "btn green",//按钮样式
                 icon: "fa fa-cubes",
                 handle: function (grid) {//按钮点击事件
-                    if (currentSiteId == null){
+                    if (currentSiteId == null) {
                         alert("请先选择站点！");
                         return false;
                     }
@@ -300,7 +285,8 @@
                     });
                     modal.show();
                     var form = modal.$body.dmForm(getFormOptions());
-                    form.setValue("siteId",currentSiteId);
+                    form.setValue("siteId", currentSiteId);
+                    form.setValue("pid", currentChannelId);
                 }
             }, {
                 text: " 删 除",
@@ -335,6 +321,7 @@
             ajaxSuccess: function () {
                 modal.hide();
                 grid.reload();
+                channelTree.reAsyncChildNodes(null, "refresh");
             },
             submitText: "保存",//保存按钮的文本
             showReset: true,//是否显示重置按钮
@@ -345,7 +332,7 @@
                 text: '关闭',
                 handle: function () {
                     modal.hide();
-                    channelTree.reAsyncChildNodes(null,"refresh");
+                    channelTree.reAsyncChildNodes(null, "refresh");
                 }
             }],
             buttonsAlign: "center",
@@ -424,9 +411,50 @@
         };
         return formOpts;
     }
+    function initSelect2Site() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "../site/selectOptions",
+            success: function (data) {
+                if (data.length == 0) {
+                    Metronic.alert({
+                        message: "<a href='../site/page'>请先新建频道！</a>",
+                        type: "warning",
+                        container: "#channel_tree_div",
+                        place: "prepend",
+                        close: true
+                    });
+                }
+                $.each(data, function (i, o) {
+                    var option = $("<option></option>");
+                    option.text(o.text);
+                    option.attr("value", o.value);
+                    $("#select2_site").append(option);
+                });
+                $("#select2_site").change(function () {
+                    refreshSite();
+                });
+                $("#select2_site").select2({
+                    allowClear: true
+                });
+            }
+        });
+    }
+    function refreshSite() {
+        if (typeof(channelTree) == "undefined") {
+            $.fn.zTree.init($("#channel_tree"), channelSetting, "");
+            channelTree = $.fn.zTree.getZTreeObj("channel_tree");
+        }
+        currentSiteId = $("#select2_site").val();
+        channelTree.setting.async.url = "./tree?siteId=" + currentSiteId;
+        channelTree.reAsyncChildNodes(null, "refresh");
+        grid.reload({
+            url: "./list?siteId=" + currentSiteId
+        });
+    }
     jQuery(document).ready(function () {
-        $.fn.zTree.init($("#site_tree"), siteSetting, "");
-        siteZTree = $.fn.zTree.getZTreeObj("site_tree");
+        initSelect2Site();
         grid = $("#channel_grid").dmGrid(options);
     });
 </script>

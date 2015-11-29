@@ -36,7 +36,7 @@ import java.util.List;
         @RequestParam(value = "pageNum", required = false) Integer pageNum,
         @RequestParam(value = "pageSize", required = false) Integer pageSize,
         CmsChannel cmsChannel) {
-        if (cmsChannel.getSiteId() == null && cmsChannel.getPid() == null)
+        if (cmsChannel.getSiteId() == null && cmsChannel.getId() == null)
             return PageConvertUtil.emptyGrid();
         return PageConvertUtil
             .grid(cmsChannelService.findCmsChannelByPage(pageNum, pageSize, cmsChannel));

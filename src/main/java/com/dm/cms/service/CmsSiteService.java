@@ -1,6 +1,7 @@
 package com.dm.cms.service;
 
 import com.dm.cms.model.CmsSite;
+import com.dm.platform.dto.SelectOptionDto;
 import com.dm.platform.dto.TreeNode;
 import com.github.pagehelper.PageInfo;
 
@@ -18,4 +19,5 @@ public interface CmsSiteService {
     CmsSite findOneByDomain(String domain);
     PageInfo<CmsSite> findCmsSite(Integer pageNum,Integer pageSize,Map argMap);
     List<TreeNode> findCmsSiteTreeNodes();
+    List<SelectOptionDto> findCmsSiteSelectOption();
 }

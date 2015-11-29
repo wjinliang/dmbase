@@ -2,6 +2,7 @@ package com.dm.cms.controller;
 
 import com.dm.cms.model.CmsSite;
 import com.dm.cms.service.CmsSiteService;
+import com.dm.platform.dto.SelectOptionDto;
 import com.dm.platform.dto.TreeNode;
 import com.dm.platform.util.SqlParam;
 import com.dm.platform.util.PageConvertUtil;
@@ -32,8 +33,7 @@ import java.util.Map;
 
     @RequestMapping("/list") public @ResponseBody Object findSites(
         @RequestParam(value = "pageNum", required = false) Integer pageNum,
-        @RequestParam(value = "pageSize", required = false) Integer pageSize,
-        CmsSite cmsSite,
+        @RequestParam(value = "pageSize", required = false) Integer pageSize, CmsSite cmsSite,
         @RequestParam(value = "sort", required = false) String sort) {
         Map map = new SqlParam<CmsSite>().autoParam(cmsSite, sort);
         PageInfo<CmsSite> page = cmsSiteService.findCmsSite(pageNum, pageSize, map);
@@ -77,6 +77,11 @@ import java.util.Map;
     @RequestMapping("/tree") public @ResponseBody Object treeJson() {
         List<TreeNode> treeNodes = cmsSiteService.findCmsSiteTreeNodes();
         return treeNodes;
+    }
+
+    @RequestMapping("/selectOptions") public @ResponseBody Object selectOptions() {
+        List<SelectOptionDto> selectOptionDtos = cmsSiteService.findCmsSiteSelectOption();
+        return selectOptionDtos;
     }
 }
 

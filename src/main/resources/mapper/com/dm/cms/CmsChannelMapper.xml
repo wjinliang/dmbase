@@ -222,8 +222,8 @@
                 <if test="model.siteId != null">
                     site_id = #{model.siteId}
                 </if>
-                <if test="model.pid != null">
-                    pid = #{model.pid}
+                <if test="model.id != null">
+                    and (pid = #{model.id} or id = #{model.id})
                 </if>
                 <if test="model.displayName != null">
                     and display_name like CONCAT(CONCAT('%', #{model.displayName}),'%')

@@ -1,6 +1,7 @@
 package com.dm.cms.sqldao;
 
 import com.dm.cms.model.CmsSite;
+import com.dm.platform.dto.SelectOptionDto;
 import com.dm.platform.dto.TreeNode;
 
 import java.util.List;
@@ -60,4 +61,6 @@ public interface CmsSiteMapper {
     CmsSite selectByDomain(String domain);
 
     List<TreeNode> selectTreeNodesByArgMap(Map argMap);
+
+    List<SelectOptionDto> selectSelectOptionByArgMap(Map argMap);
 }
