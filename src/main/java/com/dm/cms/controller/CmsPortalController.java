@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
         if (cmsSite == null) {
             return "404";
         }
+        model.addAttribute("basePath",getWholePath());
         model.addAttribute("site", cmsSite);
         return siteUrl(cmsSite);
 
