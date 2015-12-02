@@ -105,7 +105,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.id
      *
      * @return the value of cms_channel.id
-     *
      * @mbggenerated
      */
     public Integer getId() {
@@ -117,7 +116,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.id
      *
      * @param id the value for cms_channel.id
-     *
      * @mbggenerated
      */
     public void setId(Integer id) {
@@ -129,7 +127,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.pid
      *
      * @return the value of cms_channel.pid
-     *
      * @mbggenerated
      */
     public Integer getPid() {
@@ -141,7 +138,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.pid
      *
      * @param pid the value for cms_channel.pid
-     *
      * @mbggenerated
      */
     public void setPid(Integer pid) {
@@ -153,7 +149,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.display_name
      *
      * @return the value of cms_channel.display_name
-     *
      * @mbggenerated
      */
     public String getDisplayName() {
@@ -165,7 +160,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.display_name
      *
      * @param displayName the value for cms_channel.display_name
-     *
      * @mbggenerated
      */
     public void setDisplayName(String displayName) {
@@ -177,7 +171,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.en_name
      *
      * @return the value of cms_channel.en_name
-     *
      * @mbggenerated
      */
     public String getEnName() {
@@ -189,7 +182,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.en_name
      *
      * @param enName the value for cms_channel.en_name
-     *
      * @mbggenerated
      */
     public void setEnName(String enName) {
@@ -201,7 +193,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.site_id
      *
      * @return the value of cms_channel.site_id
-     *
      * @mbggenerated
      */
     public Integer getSiteId() {
@@ -213,7 +204,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.site_id
      *
      * @param siteId the value for cms_channel.site_id
-     *
      * @mbggenerated
      */
     public void setSiteId(Integer siteId) {
@@ -225,7 +215,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.template_id
      *
      * @return the value of cms_channel.template_id
-     *
      * @mbggenerated
      */
     public Integer getTemplateId() {
@@ -237,7 +226,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.template_id
      *
      * @param templateId the value for cms_channel.template_id
-     *
      * @mbggenerated
      */
     public void setTemplateId(Integer templateId) {
@@ -249,7 +237,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.is_html
      *
      * @return the value of cms_channel.is_html
-     *
      * @mbggenerated
      */
     public Boolean getIsHtml() {
@@ -261,7 +248,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.is_html
      *
      * @param isHtml the value for cms_channel.is_html
-     *
      * @mbggenerated
      */
     public void setIsHtml(Boolean isHtml) {
@@ -273,7 +259,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.seq
      *
      * @return the value of cms_channel.seq
-     *
      * @mbggenerated
      */
     public Integer getSeq() {
@@ -285,7 +270,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.seq
      *
      * @param seq the value for cms_channel.seq
-     *
      * @mbggenerated
      */
     public void setSeq(Integer seq) {
@@ -297,7 +281,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.create_time
      *
      * @return the value of cms_channel.create_time
-     *
      * @mbggenerated
      */
     public Date getCreateTime() {
@@ -309,7 +292,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.create_time
      *
      * @param createTime the value for cms_channel.create_time
-     *
      * @mbggenerated
      */
     public void setCreateTime(Date createTime) {
@@ -321,7 +303,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.create_user
      *
      * @return the value of cms_channel.create_user
-     *
      * @mbggenerated
      */
     public Integer getCreateUser() {
@@ -333,7 +314,6 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.create_user
      *
      * @param createUser the value for cms_channel.create_user
-     *
      * @mbggenerated
      */
     public void setCreateUser(Integer createUser) {
@@ -345,7 +325,6 @@ public class CmsChannel implements Serializable {
      * This method returns the value of the database column cms_channel.update_time
      *
      * @return the value of cms_channel.update_time
-     *
      * @mbggenerated
      */
     public Date getUpdateTime() {
@@ -357,10 +336,19 @@ public class CmsChannel implements Serializable {
      * This method sets the value of the database column cms_channel.update_time
      *
      * @param updateTime the value for cms_channel.update_time
-     *
      * @mbggenerated
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    private String siteDomain;
+
+    public String getSiteDomain() {
+        return siteDomain;
+    }
+
+    public void setSiteDomain(String siteDomain) {
+        this.siteDomain = siteDomain;
     }
 }

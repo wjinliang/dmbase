@@ -18,4 +18,6 @@ public interface CmsContentService {
     void deleteCmsContentById(int cmsContentId);
 
     PageInfo<CmsContent> findCmsContentByPage(Integer pageNum, Integer pageSize, Map argMap);
+
+    CmsContent findOneByPortal(String siteDomain,String channelEnName,int cmsContentId);
 }

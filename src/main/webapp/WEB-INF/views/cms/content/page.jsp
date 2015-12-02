@@ -277,7 +277,7 @@
             cls: "green",
             icon: "fa fa-search",
             handle: function (index, data) {
-                //window.open(root + "portal/" + data.domain);
+                window.open(root + "portal/" + data.siteDomain + "/" + data.channelEnName + "/" + data.id);
             }
         }, {
             text: "编辑",

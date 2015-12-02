@@ -145,7 +145,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.id
      *
      * @return the value of cms_content.id
-     *
      * @mbggenerated
      */
     public Integer getId() {
@@ -157,7 +156,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.id
      *
      * @param id the value for cms_content.id
-     *
      * @mbggenerated
      */
     public void setId(Integer id) {
@@ -169,7 +167,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.title
      *
      * @return the value of cms_content.title
-     *
      * @mbggenerated
      */
     public String getTitle() {
@@ -181,7 +178,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.title
      *
      * @param title the value for cms_content.title
-     *
      * @mbggenerated
      */
     public void setTitle(String title) {
@@ -193,7 +189,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.title_image_url
      *
      * @return the value of cms_content.title_image_url
-     *
      * @mbggenerated
      */
     public String getTitleImageUrl() {
@@ -205,7 +200,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.title_image_url
      *
      * @param titleImageUrl the value for cms_content.title_image_url
-     *
      * @mbggenerated
      */
     public void setTitleImageUrl(String titleImageUrl) {
@@ -217,7 +211,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.title_image_illustrate
      *
      * @return the value of cms_content.title_image_illustrate
-     *
      * @mbggenerated
      */
     public String getTitleImageIllustrate() {
@@ -229,11 +222,11 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.title_image_illustrate
      *
      * @param titleImageIllustrate the value for cms_content.title_image_illustrate
-     *
      * @mbggenerated
      */
     public void setTitleImageIllustrate(String titleImageIllustrate) {
-        this.titleImageIllustrate = titleImageIllustrate == null ? null : titleImageIllustrate.trim();
+        this.titleImageIllustrate =
+            titleImageIllustrate == null ? null : titleImageIllustrate.trim();
     }
 
     /**
@@ -241,7 +234,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.brief
      *
      * @return the value of cms_content.brief
-     *
      * @mbggenerated
      */
     public String getBrief() {
@@ -253,7 +245,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.brief
      *
      * @param brief the value for cms_content.brief
-     *
      * @mbggenerated
      */
     public void setBrief(String brief) {
@@ -265,7 +256,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.content_type
      *
      * @return the value of cms_content.content_type
-     *
      * @mbggenerated
      */
     public Integer getContentType() {
@@ -277,7 +267,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.content_type
      *
      * @param contentType the value for cms_content.content_type
-     *
      * @mbggenerated
      */
     public void setContentType(Integer contentType) {
@@ -289,7 +278,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.author
      *
      * @return the value of cms_content.author
-     *
      * @mbggenerated
      */
     public String getAuthor() {
@@ -301,7 +289,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.author
      *
      * @param author the value for cms_content.author
-     *
      * @mbggenerated
      */
     public void setAuthor(String author) {
@@ -313,7 +300,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.publish_date
      *
      * @return the value of cms_content.publish_date
-     *
      * @mbggenerated
      */
     public Date getPublishDate() {
@@ -325,7 +311,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.publish_date
      *
      * @param publishDate the value for cms_content.publish_date
-     *
      * @mbggenerated
      */
     public void setPublishDate(Date publishDate) {
@@ -337,7 +322,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.channel_id
      *
      * @return the value of cms_content.channel_id
-     *
      * @mbggenerated
      */
     public Integer getChannelId() {
@@ -349,7 +333,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.channel_id
      *
      * @param channelId the value for cms_content.channel_id
-     *
      * @mbggenerated
      */
     public void setChannelId(Integer channelId) {
@@ -361,7 +344,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.template_id
      *
      * @return the value of cms_content.template_id
-     *
      * @mbggenerated
      */
     public Integer getTemplateId() {
@@ -373,7 +355,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.template_id
      *
      * @param templateId the value for cms_content.template_id
-     *
      * @mbggenerated
      */
     public void setTemplateId(Integer templateId) {
@@ -385,7 +366,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.is_html
      *
      * @return the value of cms_content.is_html
-     *
      * @mbggenerated
      */
     public Boolean getIsHtml() {
@@ -397,7 +377,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.is_html
      *
      * @param isHtml the value for cms_content.is_html
-     *
      * @mbggenerated
      */
     public void setIsHtml(Boolean isHtml) {
@@ -409,7 +388,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.create_time
      *
      * @return the value of cms_content.create_time
-     *
      * @mbggenerated
      */
     public Date getCreateTime() {
@@ -421,7 +399,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.create_time
      *
      * @param createTime the value for cms_content.create_time
-     *
      * @mbggenerated
      */
     public void setCreateTime(Date createTime) {
@@ -433,7 +410,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.create_user
      *
      * @return the value of cms_content.create_user
-     *
      * @mbggenerated
      */
     public Integer getCreateUser() {
@@ -445,7 +421,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.create_user
      *
      * @param createUser the value for cms_content.create_user
-     *
      * @mbggenerated
      */
     public void setCreateUser(Integer createUser) {
@@ -457,7 +432,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.update_time
      *
      * @return the value of cms_content.update_time
-     *
      * @mbggenerated
      */
     public Date getUpdateTime() {
@@ -469,7 +443,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.update_time
      *
      * @param updateTime the value for cms_content.update_time
-     *
      * @mbggenerated
      */
     public void setUpdateTime(Date updateTime) {
@@ -481,7 +454,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.status
      *
      * @return the value of cms_content.status
-     *
      * @mbggenerated
      */
     public Short getStatus() {
@@ -493,7 +465,6 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.status
      *
      * @param status the value for cms_content.status
-     *
      * @mbggenerated
      */
     public void setStatus(Short status) {
@@ -505,7 +476,6 @@ public class CmsContent implements Serializable {
      * This method returns the value of the database column cms_content.content_text
      *
      * @return the value of cms_content.content_text
-     *
      * @mbggenerated
      */
     public String getContentText() {
@@ -517,10 +487,28 @@ public class CmsContent implements Serializable {
      * This method sets the value of the database column cms_content.content_text
      *
      * @param contentText the value for cms_content.content_text
-     *
      * @mbggenerated
      */
     public void setContentText(String contentText) {
         this.contentText = contentText == null ? null : contentText.trim();
+    }
+
+    private String channelEnName;
+    private String siteDomain;
+
+    public String getChannelEnName() {
+        return channelEnName;
+    }
+
+    public void setChannelEnName(String channelEnName) {
+        this.channelEnName = channelEnName;
+    }
+
+    public String getSiteDomain() {
+        return siteDomain;
+    }
+
+    public void setSiteDomain(String siteDomain) {
+        this.siteDomain = siteDomain;
     }
 }

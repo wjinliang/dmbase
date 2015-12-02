@@ -1,6 +1,8 @@
 package com.dm.cms.controller;
 
+import com.dm.cms.model.CmsChannel;
 import com.dm.cms.model.CmsContent;
+import com.dm.cms.service.CmsChannelService;
 import com.dm.cms.service.CmsContentService;
 import com.dm.platform.util.PageConvertUtil;
 import com.dm.platform.util.ResponseUtil;
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 @Controller @RequestMapping("/cms/content") public class CmsContentController {
     @Autowired CmsContentService cmsContentService;
+    @Autowired CmsChannelService cmsChannelService;
 
     @RequestMapping("/page") public String page(Model model) {
         return "/cms/content/page";
@@ -34,7 +37,7 @@ import java.util.Map;
         if (cmsContent.getChannelId() == null)
             return PageConvertUtil.emptyGrid();
         Map map = new SqlParam<CmsContent>().autoParam(cmsContent, sort);
-        map.put("model",cmsContent);
+        map.put("model", cmsContent);
         PageInfo<CmsContent> page = cmsContentService.findCmsContentByPage(pageNum, pageSize, map);
         return PageConvertUtil.grid(page);
     }
@@ -56,10 +59,16 @@ import java.util.Map;
     }
 
     private void insert(CmsContent cmsContent) {
+        CmsChannel cmsChannel = cmsChannelService.findOneById(cmsContent.getChannelId());
+        cmsContent.setSiteDomain(cmsChannel.getSiteDomain());
+        cmsContent.setChannelEnName(cmsChannel.getEnName());
         cmsContentService.insertCmsContent(cmsContent);
     }
 
     private void update(CmsContent cmsContent) {
+        CmsChannel cmsChannel = cmsChannelService.findOneById(cmsContent.getChannelId());
+        cmsContent.setSiteDomain(cmsChannel.getSiteDomain());
+        cmsContent.setChannelEnName(cmsChannel.getEnName());
         cmsContentService.updateCmsContent(cmsContent);
     }
 

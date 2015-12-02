@@ -156,6 +156,7 @@
 <script type="text/javascript"
         src="<%=basePath%>assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript">
+    var root = "<%=basePath%>"
     var channelTree;
     var currentSiteId;
     var currentChannelId;
@@ -246,6 +247,13 @@
         actionCloumText: "操作",//操作列文本
         actionCloumWidth: "20%",
         actionCloums: [{
+            text: "预览",
+            cls: "green",
+            icon: "fa fa-search",
+            handle: function (index, data) {
+                window.open(root + "portal/" + data.siteDomain + "/" + data.enName);
+            }
+        }, {
             text: "编辑",
             cls: "green",
             handle: function (index, data) {
@@ -267,7 +275,6 @@
                 }
             }],
         tools: [
-            //工具属性
             {
                 text: " 添 加",//按钮文本
                 cls: "btn green",//按钮样式

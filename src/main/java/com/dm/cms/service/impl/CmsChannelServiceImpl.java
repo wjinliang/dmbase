@@ -18,8 +18,8 @@ import java.util.Map;
 
 /**
  * Created by cgj on 2015/11/24.
- */@Service
-public class CmsChannelServiceImpl implements CmsChannelService {
+ */
+@Service public class CmsChannelServiceImpl implements CmsChannelService {
     @Autowired CmsChannelMapper cmsChannelMapper;
     @Autowired CmsSiteMapper cmsSiteMapper;
 
@@ -45,10 +45,14 @@ public class CmsChannelServiceImpl implements CmsChannelService {
         return cmsChannelMapper.selectByEnName(enName);
     }
 
+    @Override public CmsChannel findOneByPortal(String domain, String enName) {
+        return cmsChannelMapper.selectByDomainAndEnName(domain, enName);
+    }
+
     @Override public PageInfo<CmsChannel> findCmsChannelByPage(Integer pageNum, Integer pageSize,
         CmsChannel cmsChannel) {
         Map map = new HashMap();
-        map.put("model",cmsChannel);
+        map.put("model", cmsChannel);
         PageHelper.startPage(pageNum, pageSize);
         List<CmsChannel> list = cmsChannelMapper.selectRecordsByArgMap(map);
         PageInfo<CmsChannel> page = new PageInfo<CmsChannel>(list);
@@ -59,7 +63,7 @@ public class CmsChannelServiceImpl implements CmsChannelService {
         Map map = new HashMap();
         CmsChannel model = new CmsChannel();
         model.setSiteId(siteId);
-        map.put("model",model);
+        map.put("model", model);
         return cmsChannelMapper.selectTreeNodes(map);
     }
 
@@ -67,16 +71,17 @@ public class CmsChannelServiceImpl implements CmsChannelService {
         Map channelArgMap = new HashMap();
         List<TreeNode> channelNodes = cmsChannelMapper.selectTreeNodes(channelArgMap);
         for (TreeNode treeNode : channelNodes) {
-            if(treeNode.getpId()==0){
+            if (treeNode.getpId() == 0) {
                 treeNode.setpId(-treeNode.getI());
-            };
+            }
+            ;
         }
         Map siteArgMap = new HashMap();
         List<TreeNode> siteNodes = cmsSiteMapper.selectTreeNodesByArgMap(siteArgMap);
         for (TreeNode siteNode : siteNodes) {
             siteNode.setpId(0);
             siteNode.setId(-siteNode.getId());
-            Collections.addAll(channelNodes,siteNode);
+            Collections.addAll(channelNodes, siteNode);
         }
         return channelNodes;
     }

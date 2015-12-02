@@ -26,6 +26,8 @@ public interface CmsChannelService {
      */
     CmsChannel findOneByEnName(String enName);
 
+    CmsChannel findOneByPortal(String domain, String enName);
+
     PageInfo<CmsChannel> findCmsChannelByPage(Integer pageNum, Integer pageSize,
         CmsChannel cmsChannel);
 
@@ -51,6 +53,6 @@ public interface CmsChannelService {
      */
     List<TreeNode> findCmsChannelTreeNodeWithSiteNodeFilterByUser();
 
-    void updateSortOfCmsChannel(int fromCmsChannelId,int toCmsChannelId);
+    void updateSortOfCmsChannel(int fromCmsChannelId, int toCmsChannelId);
 
 }

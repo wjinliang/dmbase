@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,5 +40,14 @@ import java.util.Map;
         List<CmsContent> list = cmsContentMapper.selectRecordByArgMap(argMap);
         PageInfo<CmsContent> pageInfo = new PageInfo<CmsContent>(list);
         return pageInfo;
+    }
+
+    @Override
+    public CmsContent findOneByPortal(String siteDomain, String channelEnName, int cmsContentId) {
+        Map argMap = new HashMap();
+        argMap.put("domain", siteDomain);
+        argMap.put("enName", channelEnName);
+        argMap.put("contentId", cmsContentId);
+        return cmsContentMapper.selectByParams(argMap);
     }
 }

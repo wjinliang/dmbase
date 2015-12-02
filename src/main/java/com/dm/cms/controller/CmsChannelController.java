@@ -1,7 +1,9 @@
 package com.dm.cms.controller;
 
 import com.dm.cms.model.CmsChannel;
+import com.dm.cms.model.CmsSite;
 import com.dm.cms.service.CmsChannelService;
+import com.dm.cms.service.CmsSiteService;
 import com.dm.platform.dto.TreeNode;
 import com.dm.platform.util.PageConvertUtil;
 import com.dm.platform.util.PageUtil;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @Controller @RequestMapping("/cms/channel") public class CmsChannelController {
     @Autowired CmsChannelService cmsChannelService;
+    @Autowired CmsSiteService cmsSiteService;
 
     @RequestMapping("/page") public String page(Model model) {
         return "/cms/channel/page";
@@ -56,10 +59,16 @@ import java.util.List;
     }
 
     private void insertChannel(CmsChannel cmsChannel) {
+        //TODO 逻辑验证
+        CmsSite cmsSite = cmsSiteService.findOneById(cmsChannel.getSiteId());
+        cmsChannel.setSiteDomain(cmsSite.getDomain());
         cmsChannelService.insertCmsChannel(cmsChannel);
     }
 
     private void updateChannel(CmsChannel cmsChannel) {
+        //TODO 逻辑验证
+        CmsSite cmsSite = cmsSiteService.findOneById(cmsChannel.getSiteId());
+        cmsChannel.setSiteDomain(cmsSite.getDomain());
         cmsChannelService.updateCmsChannel(cmsChannel);
     }
 }

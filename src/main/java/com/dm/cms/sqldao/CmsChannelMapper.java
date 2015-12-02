@@ -2,6 +2,7 @@ package com.dm.cms.sqldao;
 
 import com.dm.cms.model.CmsChannel;
 import com.dm.platform.dto.TreeNode;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -60,4 +61,7 @@ public interface CmsChannelMapper {
     List<TreeNode> selectTreeNodes(Map argMap);
 
     CmsChannel selectByEnName(String enName);
+
+    CmsChannel selectByDomainAndEnName(@Param(value = "domain") String domain,
+        @Param(value = "enName") String enName);
 }

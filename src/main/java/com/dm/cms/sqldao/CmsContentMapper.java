@@ -1,6 +1,7 @@
 package com.dm.cms.sqldao;
 
 import com.dm.cms.model.CmsContent;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -63,4 +64,6 @@ public interface CmsContentMapper {
     int updateByPrimaryKey(CmsContent record);
 
     List<CmsContent> selectRecordByArgMap(Map argMap);
+
+    CmsContent selectByParams(Map argMap);
 }
