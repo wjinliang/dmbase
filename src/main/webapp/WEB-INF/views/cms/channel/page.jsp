@@ -83,7 +83,6 @@
                                                                 id="select2_site"
                                                                 class="form-control input-medium select2me"
                                                                 data-placeholder="请选择站点...">
-                                                            <option value=""></option>
                                                         </select>
                                                         <span class="input-group-addon"
                                                               onclick="refreshSite()"
@@ -432,6 +431,9 @@
                     option.attr("value", o.value);
                     $("#select2_site").append(option);
                 });
+                if (data.length > 0) {
+                    refreshSite();
+                }
                 $("#select2_site").change(function () {
                     refreshSite();
                 });

@@ -5,6 +5,7 @@ import com.dm.cms.service.CmsContentService;
 import com.dm.platform.util.PageConvertUtil;
 import com.dm.platform.util.ResponseUtil;
 import com.dm.platform.util.SqlParam;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,10 @@ import java.util.Map;
         @RequestParam(value = "pageNum", required = false) Integer pageNum,
         @RequestParam(value = "pageSize", required = false) Integer pageSize, CmsContent cmsContent,
         @RequestParam(value = "sort", required = false) String sort) {
+        if (cmsContent.getChannelId() == null)
+            return PageConvertUtil.emptyGrid();
         Map map = new SqlParam<CmsContent>().autoParam(cmsContent, sort);
+        map.put("model",cmsContent);
         PageInfo<CmsContent> page = cmsContentService.findCmsContentByPage(pageNum, pageSize, map);
         return PageConvertUtil.grid(page);
     }

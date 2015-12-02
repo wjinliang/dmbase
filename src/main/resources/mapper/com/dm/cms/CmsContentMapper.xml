@@ -308,8 +308,11 @@
         from cms_content
         <where>
             <if test="model != null">
+                <if test="model.channelId != null">
+                    channel_id = #{model.channelId}
+                </if>
                 <if test="model.title != null">
-                    title like CONCAT(CONCAT('%', #{model.title}),'%')
+                    and title like CONCAT(CONCAT('%', #{model.title}),'%')
                 </if>
             </if>
         </where>

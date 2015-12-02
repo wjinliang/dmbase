@@ -81,7 +81,6 @@
                                                                 id="select2_site"
                                                                 class="form-control input-medium select2me"
                                                                 data-placeholder="请选择站点...">
-                                                            <option value=""></option>
                                                         </select>
                                                         <span class="input-group-addon"
                                                               onclick="refreshSite()"
@@ -209,7 +208,7 @@
             onClick: function (event, treeId, treeNode) {
                 currentChannelId = treeNode.id;
                 grid.reload({
-                    url: "./list?id=" + currentChannelId
+                    url: "./list?channelId=" + currentChannelId
                 });
             }
         }
@@ -235,6 +234,9 @@
                     option.attr("value", o.value);
                     $("#select2_site").append(option);
                 });
+                if (data.length > 0) {
+                    refreshSite();
+                }
                 $("#select2_site").change(function () {
                     refreshSite();
                 });
@@ -289,7 +291,7 @@
                     distroy: true
                 });
                 modal.show();
-                var form = modal.$body.dmForm(formOpts);
+                var form = modal.$body.dmForm(getForm());
                 form.loadRemote("./load?contentId=" + data.id);
             }
         },
@@ -313,7 +315,8 @@
                         distroy: true
                     });
                     modal.show();
-                    var form = modal.$body.dmForm(formOpts);
+                    var form = modal.$body.dmForm(getForm());
+                    form.setValue("channelId", currentChannelId);
                 }
             }, {
                 text: " 删 除",
@@ -323,7 +326,7 @@
                 }
             }],
         search: {
-            rowEleNum: 4,
+            rowEleNum: 2,
             //搜索栏元素
             items: [{
                 type: "text",
@@ -335,99 +338,112 @@
     };
     var modal;
     //form
-    var formOpts = {
-        id: "site_form",//表单id
-        name: "site_form",//表单名
-        method: "post",//表单method
-        action: "./insertOrUpdate",//表单action
-        ajaxSubmit: true,//是否使用ajax提交表单
-        labelInline: true,
-        rowEleNum: 1,
-        beforeSubmit: function () {
+    function getForm() {
+        var formOpts = {
+            id: "site_form",//表单id
+            name: "site_form",//表单名
+            method: "post",//表单method
+            action: "./insertOrUpdate",//表单action
+            ajaxSubmit: true,//是否使用ajax提交表单
+            labelInline: true,
+            rowEleNum: 1,
+            beforeSubmit: function () {
 
-        },
-        ajaxSuccess: function () {
-            modal.hide();
-            grid.reload();
-        },
-        submitText: "保存",//保存按钮的文本
-        showReset: true,//是否显示重置按钮
-        resetText: "重置",//重置按钮文本
-        isValidate: true,//开启验证
-        buttons: [{
-            type: 'button',
-            text: '关闭',
-            handle: function () {
+            },
+            ajaxSuccess: function () {
                 modal.hide();
-            }
-        }],
-        buttonsAlign: "center",
-        //表单元素
-        items: [{
-            type: 'hidden',
-            name: 'id',
-            id: 'id'
-        }, {
-            type: 'text',//类型
-            name: 'title',//name
-            id: 'title',//id
-            label: '内容信息标题',//左边label
-            cls: 'input-large',
-            rule: {
-                required: true,
-                maxlength: 64
+                grid.reload();
             },
-            message: {
-                required: "请输入内容信息标题",
-                maxlength: "最多输入64字节"
-            }
-        }, {
-            type: 'textarea',//类型
-            row: 3,
-            name: 'brief',//name
-            id: 'brief',//id
-            label: '内容信息摘要',//左边label
-            cls: 'input-large',
-            rule: {
-                required: true,
-                maxlength: 256
-            },
-            message: {
-                required: "请输入内容信息摘要",
-                maxlength: "最多输入256字节"
-            }
-        }, {
-            type: 'select',
-            name: 'templateId',
-            id: 'templateId',
-            label: '页面模板',
-            cls: 'input-large',
-            items: [{
-                value: '',
-                text: '请选择'
+            submitText: "保存",//保存按钮的文本
+            showReset: true,//是否显示重置按钮
+            resetText: "重置",//重置按钮文本
+            isValidate: true,//开启验证
+            buttons: [{
+                type: 'button',
+                text: '关闭',
+                handle: function () {
+                    modal.hide();
+                }
             }],
-            itemsUrl: "../template/selects",
-            rule: {
-                required: true
-            },
-            message: {
-                required: "请选择页面模板"
-            }
-        }, {
-            type: 'kindEditor',
-            name: 'contentText',
-            id: 'contentText',
-            label: '内容文本',
-            height: "300px",
-            width: "500px",
-            rule: {
-                required: true
-            },
-            message: {
-                required: "请输入内容文本"
-            }
-        }]
-    };
+            buttonsAlign: "center",
+            //表单元素
+            items: [{
+                type: 'hidden',
+                name: 'id',
+                id: 'id'
+            }, {
+                type: "tree",
+                name: "channelId",
+                id: "channelId",
+                label: "所属频道",
+                url: "../channel/tree?siteId=" + currentSiteId,
+                autoParam: ["id", "name", "pId"],
+                expandAll: true,
+                chkStyle: "radio"
+            }, {
+                type: 'text',//类型
+                name: 'title',//name
+                id: 'title',//id
+                label: '内容信息标题',//左边label
+                cls: 'input-large',
+                rule: {
+                    required: true,
+                    maxlength: 64
+                },
+                message: {
+                    required: "请输入内容信息标题",
+                    maxlength: "最多输入64字节"
+                }
+            }, {
+                type: 'textarea',//类型
+                row: 3,
+                name: 'brief',//name
+                id: 'brief',//id
+                label: '内容信息摘要',//左边label
+                cls: 'input-large',
+                rule: {
+                    required: true,
+                    maxlength: 256
+                },
+                message: {
+                    required: "请输入内容信息摘要",
+                    maxlength: "最多输入256字节"
+                }
+            }, {
+                type: 'select',
+                name: 'templateId',
+                id: 'templateId',
+                label: '页面模板',
+                cls: 'input-large',
+                items: [{
+                    value: '',
+                    text: '请选择'
+                }],
+                itemsUrl: "../template/selects",
+                rule: {
+                    required: true
+                },
+                message: {
+                    required: "请选择页面模板"
+                }
+            }, {
+                type: 'kindEditor',
+                name: 'contentText',
+                id: 'contentText',
+                label: '内容文本',
+                height: "300px",
+                width: "500px",
+                rule: {
+                    required: true
+                },
+                message: {
+                    required: "请输入内容文本"
+                }
+            }]
+        };
+        return formOpts;
+    }
+
 
     function deleteItem(id) {
         bootbox.confirm("确定删除吗？", function (result) {
